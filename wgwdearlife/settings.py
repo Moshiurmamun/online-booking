@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'accounts',
+    'hotels',
 
     'social_django',
 
@@ -145,23 +146,27 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTH_USER_MODEL = 'accounts.UserProfile'
+SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
+
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
 
 
 
-SOCIAL_AUTH_FACEBOOK_KEY = '207836373929981'       # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '4c41c2ecf3dad7dc0d32afe52970b750'    #AppSecret
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_KEY = '529750667668812'       # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '3c5d28f979422b4573317ec3d3e66a0e'    #AppSecret
+
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email'] # add this
 SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
-  'fields': 'id, name, email, picture.type(large), link'
+  'fields': 'id, name, email',
 }
 SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
     ('name', 'name'),
