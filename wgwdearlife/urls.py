@@ -19,10 +19,13 @@ from .import views
 from django.conf.urls.static import static
 from django.conf import settings
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('oauth/' ,include('social_django.urls'), name="social"),
+    path('hotels/', include('hotels.urls')),
     path('', views.home, name="home"),
 ]
 
