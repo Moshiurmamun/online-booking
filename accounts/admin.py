@@ -1,8 +1,11 @@
+
 from django.contrib import admin
 
-from .models import UserProfile
+from . import models
+
 
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display= ['user', 'email', 'phone']
+    list_display = ['email','phone']
 
-admin.site.register(UserProfile, UserProfileAdmin)
+admin.site.register(models.UserProfile, UserProfileAdmin)
+admin.site.site_header = "Dear Life Bd"

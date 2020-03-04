@@ -1,47 +1,73 @@
-from . forms import SignupForm, LoginForm
-from . models import UserProfile
 from django.shortcuts import render, redirect
+from django.views import View
 from django.contrib.auth import login, logout
 
+from . import models
+from . import forms
 
 
-def signup_views(request):
-	if request.method == 'POST':
-		form = SignupForm(request.POST)
+#register as user
+class RegistrationUser(View):
+    template_name = 'accounts/signup.html'
 
-		if form.is_valid():
-			user = form.signup(request)
-			user.save()
-			return redirect('accounts:login')
+    def get(self, request):
 
-	else:
-		form = SignupForm()
+        form = forms.UserRegistrationForm()
 
-	context = {
-		'form': form,
-	}
+        variables = {
+            'form': form,
+        }
 
-	return render(request, 'accounts/signup.html', context)
+        return render(request, self.template_name, variables)
 
+    def post(self, request):
 
-# --------------------------------------
-# ------------Login Views--------------
-# --------------------------------------
-def login_views(request):
-	if request.method == 'POST':
-		form = LoginForm(data=request.POST)
-		if form.is_valid():
-			user = form.login(request)
-			if user:
-				login(request,user)
-				return redirect('home')
-	else:
-		form = LoginForm()
+        form = forms.UserRegistrationForm(request.POST or None)
 
-	context = {
-		'form': form,
-	}
+        if form.is_valid():
+            form.deploy()
+            return redirect('accounts:login')
 
-	return render(request, 'accounts/login.html', context)
+        variables = {
+            'form': form,
+        }
+
+        return render(request, self.template_name, variables)
 
 
+
+#logout functionality
+def logout_request(request):
+    logout(request)
+    return redirect('accounts:login')
+
+
+
+#login
+class Login(View):
+    template_name = 'accounts/login.html'
+
+    def get(self, request):
+        form = forms.Login()
+
+        variables = {
+            'form': form,
+        }
+
+        return render(request, self.template_name, variables)
+
+    def post(self, request):
+        form = forms.Login(request.POST or None)
+
+        if form.is_valid():
+            user = form.login_request()
+            if user:
+                login(request, user)
+
+                return redirect('home')
+
+        variables = {
+            'form': form,
+        }
+
+        return render(request, self.template_name, variables)
