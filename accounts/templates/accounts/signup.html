@@ -1,21 +1,45 @@
 {% extends 'base.html' %}
-
 {% load static %}
 {% load crispy_forms_tags %}
 
 
+<title> Sign Up</title>
+     {% block stylesheet %}
+        <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+     {% endblock %}
+
+
 {% block content %}
+    <section>
+            <!-- <div class="background-image" > -->
+            <div >
+
+
+
+
+            </div>
+    <br>
+</section>
+
+
+
 
 <div class="row">
-    <div class="col-md-4 col-md-offset-4">
-        <h3>Sign Up</h3>
-        <form method="POST" enctype="multipart/form-data">
+    <div class="col-md-4 col-sm-8 col-md-offset-4 col-sm-offset-2">
+        <div class="card">
+            <div class="card-body">
+        <h3 class="card-title text-center">Sign Up</h3>
+        <form method="POST" action="" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form|crispy }}
             <input type="submit" class="btn btn-primary" value="Sign Up">
         </form>
+            </div>
+        </div>
     </div>
-
 </div>
+
+
+
 
 {% endblock content %}
