@@ -1,0 +1,10 @@
+.background-image{
+    background-image: url("/static/image/signup.jpg");
+    background-color: #cccccc;
+    position: relative;
+
+    background-size: cover;
+}
+.card{
+    margin-top:50px
+}
