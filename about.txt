@@ -1,5 +1,7 @@
 moshiur@gmail.com
 
+pip install Pillow
+
 
 App ID
 207836373929981
