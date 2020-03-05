@@ -18,15 +18,17 @@ from django.urls import path, include
 from .import views
 from django.conf.urls.static import static
 from django.conf import settings
-
+from hotels import views as place_view
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('oauth/' ,include('social_django.urls'), name="social"),
+
     path('hotels/', include('hotels.urls')),
-    path('', views.home, name="home"),
+    path('booking/', include('booking.urls')),
+    path('', place_view.place_list, name="home"),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

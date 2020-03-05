@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     'accounts',
     'hotels',
+    'booking',
 
     'social_django',
 
@@ -146,14 +147,12 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 AUTH_USER_MODEL = 'accounts.UserProfile'
-SOCIAL_AUTH_USERNAME_IS_FULL_EMAIL = True
 
 AUTHENTICATION_BACKENDS = (
     'social_core.backends.facebook.FacebookOAuth2',
 
     'django.contrib.auth.backends.ModelBackend',
 )
-
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
