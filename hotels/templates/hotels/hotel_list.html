@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+
+                    <div class="col-lg-12" style="margin-top:60px">
+             {% for hotel in hotels %}
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="row">
+                    {% if hotel.image %}
+                                    <div class="col-lg-6">
+                        <img src="{{ hotel.image.url }}" class="img-responsive">
+                                    </div>
+                                        {% endif %}
+                                    <div class="col-lg-6">
+                                        <h3 >{{ hotel.name }}</h3>
+                                        <p>{{ hotel.rating }}</p>
+                                        <p>{{ hotel.address }}</p>
+                                    </div>
+
+                                </div>
+                                <br>
+                                    <div class="col-lg-12">
+                                        <p>{{ hotel.description }}</p>
+                                    </div>
+                                </div>
+                            </div><br>
+        <br>
+        <br>
+        <br>
+
+            {% endfor %}
+                          </div>
+
+
+        <div class="col-lg-12">
+            {% for room in rooms %}
+            <div class="row">
+                <div class="col-lg-12">
+                        <div class="row">
+                        {% if room.image %}
+                            <div class="col-lg-4">
+
+                                <img src="{{ room.image.url }}" class="img-responsive">
+                            </div>
+                        {% endif %}
+
+
+                        <div class="col-lg-4">
+                            <h3>{{ room.name }}</h3>
+                            <p>{{ room.roomtype }}</p>
+                            <p>Capacity {{ room.capacity }}</p>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <p>Price Per Night <b>BDT {{ room.price }}</b></p>
+                            <p>Save {{ room.discount }}%</p>
+                            <p>Number of Rooms</p>
+                            <a href="{% url 'booking:bookroom' 'hotel.id' 'room.id' %}" class="btn btn-success">Book Now</a>
+
+                        </div>
+
+                        </div>
+                    <br>
+                </div>
+             </div>
+            {% endfor %}
+</div>
+
+
+{% endblock %}
