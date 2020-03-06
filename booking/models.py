@@ -7,6 +7,7 @@ class Booking(models.Model):
     hotel = models.ForeignKey(Hotels, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
     checkin = models.DateField()
     checkout = models.DateField()
     totalcost = models.IntegerField(default=0)
