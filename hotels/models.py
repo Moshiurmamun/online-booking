@@ -5,27 +5,21 @@ def upload_location(instance, filename):
     return "%s/%s" %(instance.id, filename)
 
 
-
-class Room(models.Model):
+class Places(models.Model):
     name = models.CharField(max_length=255)
-    roomtype = models.CharField(max_length=255, null=True, blank=True)
-    image = models.ImageField(upload_to='rooms_image', null=True, blank=True,)
-    capacity = models.CharField(max_length=255, null=True, blank=True)
-    price = models.FloatField(default=0)
-    check_in = models.DateTimeField(auto_now=True)
-    check_out = models.DateTimeField(auto_now=True)
-    discount = models.FloatField(default=0, null=True, blank=True)
-    vat = models.FloatField(default=0, null=True, blank=True)
-    service_charge = models.FloatField(default=0, null=True, blank=True)
+    country = models.CharField(max_length=255, null=True, blank=True)
+    image = models.ImageField(upload_to='places_image', null=True, blank=True)
 
-    def __str__(self):
+    def _str__(self):
         return self.name
+
+
 
 
 
 class Hotels(models.Model):
     name = models.CharField(max_length=255)
-    room = models.ManyToManyField(Room)
+    places = models.ForeignKey(Places ,on_delete=models.CASCADE, null=True, blank=True)
     address = models.CharField(max_length=255, null=True,blank=True)
     image = models.ImageField(upload_to='hotels_image', null=True, blank=True,)
     city = models.CharField(max_length=255,null=True,blank=True)
@@ -36,17 +30,26 @@ class Hotels(models.Model):
     def __str__(self):
         return self.name
 
-    def get_absolute_url(self):
-        return reverse("hotels:hotel_list", args=[self.id])
 
 
 
-
-class Places(models.Model):
+class Room(models.Model):
     name = models.CharField(max_length=255)
-    hotels = models.ManyToManyField(Hotels)
-    country = models.CharField(max_length=255, null=True, blank=True)
-    image = models.ImageField(upload_to='places_image', null=True, blank=True,)
+    hotel = models.ForeignKey(Hotels, on_delete=models.CASCADE, null=True, blank=True)
+    roomtype = models.CharField(max_length=255, null=True, blank=True)
+    image = models.ImageField(upload_to='rooms_image', null=True, blank=True,)
+    capacity = models.CharField(max_length=255, null=True, blank=True)
+    price = models.FloatField(default=0)
+    quantity = models.IntegerField()
+    discount = models.FloatField(default=0, null=True, blank=True)
+    vat = models.FloatField(default=0, null=True, blank=True)
+    service_charge = models.FloatField(default=0, null=True, blank=True)
 
-    def _str__(self):
+    def __str__(self):
         return self.name
+
+
+
+
+
+

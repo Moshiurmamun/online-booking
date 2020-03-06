@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Places, Hotels
+from .models import Places, Hotels, Room
+from . import forms
 
 def place_list(request):
     places = Places.objects.all()
@@ -11,24 +12,30 @@ def place_list(request):
 
 
 def hotels_list(request, id):
-    instance = get_object_or_404(Places, id=id)
-    hotels = instance.hotels.all()
-
-    #room list
-    ins = get_object_or_404(Hotels, id=id)
-    rooms = ins.room.all()
+    #instance = get_object_or_404(Places, id=id)
+    instance = Places.objects.get(id=id)
+    hotels = Hotels.objects.filter(places=instance)
 
     context = {
         'hotels': hotels,
-        'instance': instance,
-        'rooms': rooms,
-
     }
+
+
     for hotel in hotels:
         print(hotel.name)
 
-    for room in rooms:
-        print(room.name)
 
     return render(request, 'hotels/hotel_list.html', context)
 
+def room_list(request, id):
+
+
+
+    theroom = Hotels.objects.get(id=id)
+    rooms = Room.objects.filter(hotel=theroom)
+
+    context = {
+        'rooms': rooms,
+        'hotel': theroom,
+    }
+    return render(request, 'hotels/room_list.html', context)
