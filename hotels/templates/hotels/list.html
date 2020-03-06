@@ -72,7 +72,7 @@ function showDivs(n) {
                         <div class="row">
                             {% if place.image %}
                                 <div class="col-lg-6">
-                                <a href="{{ place.get_absolute_url }}"><img src="{{ place.image.url }}" class="img-responsive"></a>
+                                <a href="{% url 'hotels:hotel_list' id=place.id %}"><img src="{{ place.image.url }}" class="img-responsive"></a>
                                     <p style="position: absolute; top:50%;left:50%;font-size:25px ; color:White; font-weight:bold;transform: translate(-50%, -50%);">{{ place.name }}</p>
 
                                 </div>
