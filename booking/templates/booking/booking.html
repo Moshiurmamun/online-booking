@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
-</body>
-</html>
+
+{% block content %}
+
+<div class="container">
+    <div class="row" style="margin-top:50px">
+        <div class="col-lg-12">
+            <h3>Review & Confirm Your Booking</h3>
+
+        </div>
+
+        <div class="col-lg-12">
+            <div class="row">
+
+            {% if theroom.image %}
+                <div class="col-lg-4">
+                    <img src="{{ theroom.image.url }}" class="img-responsive">
+                    <h5>{{ theroom.name }}</h5>
+                </div>
+            {% endif %}
+                <div class="col-lg-4">
+                    <h4><b>{{ hotel.name }}</b></h4>
+                    <p>{{ hotel.address }}</p>
+                    <p>Room Capacity: {{ theroom.capacity }}</p>
+                    <p>Check in:</p>
+                    <p>Check out:</p>
+                    <p>Cancellation Policy: </p>
+                    <br>
+                    <br>
+                    <br>
+            {% if request.user.is_authenticated %}
+
+                     <h5>By continuing, you will be redirected to select payment method.</h5>
+                        <input type="button" class="btn btn-primary" value="Continue">
+
+                    {% else %}
+                    <h3><b>Sign In First</b></h3>
+                    <input type="button" class="btn btn-success" value="Sign In">
+
+
+                    {% endif %}
+                </div>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock content %}
+
+

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row" style="margin-top:50px">
+        <div class="col-lg-12">
+
+
+{% for book in booking %}
+
+<a class="btn btn-default" href="#">Download PDF</a>
+            <h5>{{ book.hotel.name }}</h5>
+
+
+
+            {% endfor %}
+
+{% endblock content %}
+        </div>
+
+    </div>
+</div>
