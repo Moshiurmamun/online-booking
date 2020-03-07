@@ -67,41 +67,23 @@ function showDivs(n) {
                 <h2 class="text-center">Popular Destinations</h2>
                 <br>
                  {% for place in places %}
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
+                    <div class="col-lg-6">
                             {% if place.image %}
-                                <div class="col-lg-6">
+
+
                                 <a href="{% url 'hotels:hotel_list' id=place.id %}"><img src="{{ place.image.url }}" class="img-responsive"></a>
                                     <p style="position: absolute; top:50%;left:50%;font-size:25px ; color:White; font-weight:bold;transform: translate(-50%, -50%);">{{ place.name }}</p>
 
-                                </div>
+
+
                             {% endif %}
-
-                        </div>
                     </div>
-                </div>
 
-                 {% endfor %}
 
-                <!--
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="row">
-                            <div class="col-lg-8">
-                                <img src="{% static 'image/coxs.jpg' %}" class="img-responsive">
-                                <p style="position: absolute; top:50%;left:42%;font-size:25px ; color:White; font-weight:bold">Cox's Bazar</p>
-                            </div>
-                            <div class="col-lg-4">
-                                <img src="{% static 'image/dhaka.jpg' %}" class="img-responsive" style="height:280px">
-                                  <p style="position: absolute; top:50%;left:50%;font-size:25px ; color:White; font-weight:bold;transform: translate(-50%, -50%);">Dhaka</p>
 
-                            </div>
+                 {% endfor %}</div>
 
-                        </div>
 
-                    </div>
-                    -->
 
                 </div>
                 <br>
@@ -110,9 +92,6 @@ function showDivs(n) {
                 <br>
             </div>
 
-        </div>
-
-    </div>
 </section>
 
 
