@@ -13,4 +13,4 @@ class Booking(models.Model):
     totalcost = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user
+        return self.user.email

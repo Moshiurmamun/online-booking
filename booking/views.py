@@ -4,7 +4,7 @@ from hotels.models import Hotels, Room
 import datetime
 
 
-
+# how long the user is staying in a hotel & the total cost.
 def bookroom(request, hotelid, roomid):
 
     #FirstDate = request.session['checkin']
@@ -20,7 +20,7 @@ def bookroom(request, hotelid, roomid):
     hotel = Hotels.objects.get(id=hotelid)
     theroom = Room.objects.get(id=roomid)
 
-    #price = theroom.price
+    price = theroom.price
     #totalcost = stayduration * price
 
     context = {
@@ -29,8 +29,16 @@ def bookroom(request, hotelid, roomid):
        # 'stayduration': stayduration,
         'hotel': hotel,
         'theroom': theroom,
-        #'price':price,
+        'price':price,
         #'totalcost':totalcost,
     }
     return render(request, 'booking/booking.html', context)
 
+
+
+def mybooking(request):
+    booking = Booking.objects.filter(user=request.user)
+    context = {
+        'booking': booking,
+    }
+    return render(request, 'booking/mybooking.html', context)
