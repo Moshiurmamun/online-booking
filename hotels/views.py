@@ -31,11 +31,11 @@ def room_list(request, id):
 
 
 
-    theroom = Hotels.objects.get(id=id)
-    rooms = Room.objects.filter(hotel=theroom)
+    thehotel = Hotels.objects.get(id=id)
+    rooms = Room.objects.filter(hotel=thehotel)
 
     context = {
         'rooms': rooms,
-        'hotel': theroom,
+        'hotel': thehotel,
     }
     return render(request, 'hotels/room_list.html', context)
