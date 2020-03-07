@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import login, logout
-
+from booking.models import Booking
 from . import models
 from . import forms
 
@@ -71,3 +71,6 @@ class Login(View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
