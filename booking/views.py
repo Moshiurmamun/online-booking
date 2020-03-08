@@ -3,34 +3,34 @@ from . import models
 from hotels.models import Hotels, Room
 import datetime
 
-
 # how long the user is staying in a hotel & the total cost.
 def bookroom(request, hotelid, roomid):
 
-    #FirstDate = request.session['checkin']
-    #SecDate = request.session['checkout']
+    FirstDate = request.session['checkin']
+    SecDate = request.session['checkout']
 
-    #checkin = datetime.datetime.strptime(FirstDate, "%Y-%m-%d").date()
-    #checkout = datetime.datetime.strptime(SecDate, "%Y-%m-%d").date()
+    checkin = datetime.datetime.strptime(FirstDate, "%Y-%m-%d").date()
+    checkout = datetime.datetime.strptime(SecDate, "%Y-%m-%d").date()
 
-   # timedeltaSum = checkout - checkin
+    timedeltaSum = checkout - checkin
 
-   # stayduration = timedeltaSum.days
+    stayduration = timedeltaSum.days
 
     hotel = Hotels.objects.get(id=hotelid)
     theroom = Room.objects.get(id=roomid)
 
     price = theroom.price
-    #totalcost = stayduration * price
+
+    totalcost = stayduration * price
 
     context = {
-        #'checkin': checkin,
-        #'checkout': checkout,
-       # 'stayduration': stayduration,
+        'checkin': checkin,
+        'checkout': checkout,
+        'stayduration': stayduration,
         'hotel': hotel,
         'theroom': theroom,
         'price':price,
-        #'totalcost':totalcost,
+        'totalcost':totalcost,
     }
     return render(request, 'booking/booking.html', context)
 
@@ -42,3 +42,4 @@ def mybooking(request):
         'booking': booking,
     }
     return render(request, 'booking/mybooking.html', context)
+
