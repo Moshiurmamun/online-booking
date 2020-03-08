@@ -4,41 +4,51 @@
 
 {% block content %}
 
-<div class="container">
+    <div class="container">
 
-   <div class="row" style="margin-top:100px">
-                            <div class="col-lg-12">
+        <div class="row" >
+                            <div class="col-lg-12" style="margin-top:80px">
+                                <div class="w3-card-2" style="border: 1px solid #ddd; border-radius:8px">
                                 <div class="row">
-                    {% if hotel.image %}
-                                    <div class="col-lg-4">
-                        <img src="{{ hotel.image.url }}" class="img-responsive">
-                                    </div>
+                                    <div class="col-lg-7">
+
+                                        {% if hotel.image %}
+                                            <img src="{{ hotel.image.url }}" class="img-responsive" style="padding:20px;border-radius: 25px;height:450px; width:100%">
                                         {% endif %}
-                                    <div class="col-lg-6">
-                                        <a href="{% url 'hotels:room_list' id=hotel.id %}">{{ hotel.name }}</a>
+                                    </div>
+                                    <div class="col-lg-5">
+                                        <h3><a href="{% url 'hotels:room_list' id=hotel.id %}">{{ hotel.name }}</a></h3>
                                         <p>{{ hotel.rating }}</p>
                                         <p>{{ hotel.address }}</p>
                                     </div>
 
                                 </div>
                                 <br>
-                                    <div class="col-lg-12">
+
                                         <p>{{ hotel.description }}</p>
-                                    </div>
+
                                 </div>
-   </div>
-
-<div class="col-lg-12" style="margin-top:100px">
-            {% for room in rooms %}
-            <div class="row">
-                <div class="col-lg-12">
-                        <div class="row">
-                        {% if room.image %}
-                            <div class="col-lg-4">
-
-                                <img src="{{ room.image.url }}" class="img-responsive">
+                                <br>
                             </div>
+        </div>
+
+
+       <!-- =================Room List==================== -->
+        <div class="row">
+            <div class="col-lg-12">
+            <div class="w3-card-1" style="border: 1px solid #ddd; border-radius:8px">
+                {% for room in rooms %}
+                <br>
+                <div class="w3-card-1"  style="border: 1px solid #ddd; border-radius:8px">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            {% if room.image %}
+
+
+                                <img src="{{ room.image.url }}" class="img-responsive" style="width:300px; height:200px">
+
                         {% endif %}
+                        </div>
 
 
                         <div class="col-lg-4">
@@ -53,19 +63,28 @@
                             <p>Service Charge {{ room.service_charge }}%</p>
                             <p>Number of Rooms {{ room.quantity }}</p>
 
+                            <select id="room">
+                            <option value="{{ room.id }}">
+                                {{ room.quantity }}
+                            </option>
+                            </select>
+                            <p>COSTS =  {{ room.cost }}</p>
+
 
 
                             <a href="{% url 'booking:bookroom' hotel.id room.id %}" class="btn btn-success">Book Now</a>
 
                         </div>
 
-                        </div>
-                    <br>
+                    </div>
+
                 </div>
-             </div>
+            <br>
             {% endfor %}
-</div>
+        </div>
+            </div>
 
 
    </div>
+</div>
 {% endblock content %}
