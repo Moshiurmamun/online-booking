@@ -35,7 +35,7 @@ def bookroom(request, hotelid, roomid):
     return render(request, 'booking/booking.html', context)
 
 
-
+""""
 def mybooking(request):
     booking = Booking.objects.filter(user=request.user)
     context = {
@@ -43,3 +43,4 @@ def mybooking(request):
     }
     return render(request, 'booking/mybooking.html', context)
 
+"""
