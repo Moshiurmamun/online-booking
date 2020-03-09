@@ -15,6 +15,14 @@
     <br>
 </section>
 
+
+
+<section>
+    {% include 'hotels/search.html' %}
+</section>
+
+
+
 <section>
     <div class="container">
         <div class="row">
@@ -124,3 +132,31 @@ function showDivs(n) {
 
 
 {% endblock content %}
+
+
+{% block javascript %}
+
+  <script src="https://unpkg.com/flatpickr"></script>
+
+  <script>
+
+  flatpickr(".date", {
+
+	minDate: "today",
+  mode:"range",
+
+});
+
+function validateForm() {
+  var setdate = document.forms["search"]["daterange"].value;
+  if(setdate == ""){
+    alert("Date Must be Filled Out");
+    return false;
+  }
+}
+
+
+
+
+</script>
+{% endblock %}

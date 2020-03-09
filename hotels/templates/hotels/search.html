@@ -8,19 +8,17 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h3>Search</h3>
+
             <form method="POST" enctype="multipart/form-data" name="search" onsubmit="return validateForm()">
                 {% csrf_token %}
 
                 <div class="form-group">
-                    <label class="form-group-label text-muted" for="checkin">Enter Destinations</label>
-                    <input class="form-control" type="text" name="searchterm" id="checkin" placeholder="Search">
+                    <input class="form-control text-capitalize" type="text" name="searchterm" id="checkin" placeholder="where are you going?" required>
 
                 </div>
 
                 <!-- Multi Date, Date Picker -->
                 <div class="form-group">
-                    <label class="text-muted" for="checkin">Select Checkin and Checkout:</label>
                     <input class="date form-control" type="text" name="daterange" id="checkin" placeholder="Select Date" required>
 
 
