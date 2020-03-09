@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Places, Hotels, Room
 from . import forms
 from django.views import generic
@@ -10,8 +10,27 @@ from booking.models import Booking
 def place_list(request):
     places = Places.objects.all()
 
+###### Search
+    Searchterm = request.POST.get("searchterm")
+
+    if not Searchterm:
+        hotels_list = Hotels.objects.all()
+    elif Searchterm:
+        hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm))
+
+        Range = request.POST.get("daterange")
+        Rangesplit = Range.split(' to ')
+        Checkin = Rangesplit[0]
+        Checkout = Rangesplit[1]
+        request.session['checkin'] = Checkin
+        request.session['checkout'] = Checkout
+
+        context = {'hotels': hotels_list}
+        return render(request, 'hotels/hotel_list.html', context)
+
     context = {
         'places': places,
+        'hotels': hotels_list,
     }
     return render(request, 'hotels/list.html', context )
 
@@ -20,6 +39,25 @@ def hotels_list(request, id):
     #instance = get_object_or_404(Places, id=id)
     instance = Places.objects.get(id=id)
     hotels = Hotels.objects.filter(places=instance)
+
+
+########Search
+    Searchterm = request.POST.get("searchterm")
+
+    if not Searchterm:
+        hotels_list = Hotels.objects.all()
+    elif Searchterm:
+        hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm))
+
+        Range = request.POST.get("daterange")
+        Rangesplit = Range.split(' to ')
+        Checkin = Rangesplit[0]
+        Checkout = Rangesplit[1]
+        request.session['checkin'] = Checkin
+        request.session['checkout'] = Checkout
+
+        context = {'hotels': hotels_list}
+        return render(request, 'hotels/hotel_list.html', context)
 
     context = {
         'hotels': hotels,
