@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'accounts',
     'hotels',
     'booking',
+    'staff',
 
     'social_django',
 
