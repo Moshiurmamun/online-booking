@@ -1,0 +1,30 @@
+<table class="table">
+    {% for place in places  %}
+        <thead>
+            <tr>
+                <th class="float-left">
+                    <a href="">{{ place.name }}</a>
+                </th>
+                <th class="float-right">
+                    <a href="{% url 'staff:addhotel' place_id=place.id %}" class="btn btn-primary">Add Hotel</a>
+                </th>
+            </tr>
+        </thead>
+    {% endfor %}
+
+
+    <tbody>
+        {% for hotel in hotels %}
+        <tr>
+            <th>
+                <a>{{ hotel.name }}</a>
+            </th>
+        </tr>
+
+        {% endfor %}
+    </tbody>
+
+
+
+</table>
+

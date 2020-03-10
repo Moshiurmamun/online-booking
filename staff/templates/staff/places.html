@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %} Dear Life Bd - Booking {% endblock %}
+
+
+
+{% block stylesheet %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+.sidenav {
+  height: 400px;
+  width: 200px;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 30px;
+}
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  border: none;
+  background: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  outline: none;
+}
+</style>
+
+
+    {% endblock %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="sidenav">
+                <a href="{% url 'staff:staff_home' %}">Booking Request</a>
+                <a href="{% url 'staff:places_list' %}">Places</a>
+                <a href="{% url 'staff:hotels' %}">Hotels</a>
+                <a href="{% url 'staff:rooms' %}">Rooms</a>
+            </div>
+        </div>
+
+        <div class="col-md-8 col-sm-12">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h3>Places</h3>
+                    <a href="{% url 'staff:add_places' %}" class="btn btn-primary">Add Places</a>
+
+                    <!-- Places List -->
+
+                </div>
+
+            </div>
+        </div>
+
+
+
+
+
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+{% endblock content %}
