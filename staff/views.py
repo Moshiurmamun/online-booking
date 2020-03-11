@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from booking.models import Booking
 from hotels.models import Hotels, Places, Room
 from hotels.forms import PlacesForm, HotelsAddForm, RoomAddForm
@@ -16,6 +16,13 @@ def staff_home(request):
         return render(request, 'staff/staff_home.html', context)
 
 
+### View Booking
+def view_booking(request):
+
+    return render(request, 'staff/view_booking.html')
+
+
+
 ### Places List
 def places_list(request):
     if request.user.is_staff or request.user.is_superuser:
@@ -23,7 +30,7 @@ def places_list(request):
 
 
         context = {
-            'places_list': places_list,
+            'places': places_list,
         }
 
         return render(request, 'staff/places.html', context)
@@ -47,6 +54,20 @@ def add_places(request):
         return render(request, 'staff/add_places.html', context)
 
 
+
+### Edit Places View
+def edit_places(request, id):
+    if request.user.is_staff or request.user.is_superuser:
+        instance = get_object_or_404(Places, id=id)
+
+        form = PlacesForm(request.POST or None, request.FILES or None, instance=instance)
+        if form.is_valid():
+            form.save()
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'staff/add_places.html', context)
 
 
 ### Hotels View
@@ -84,6 +105,24 @@ def addhotel(request, place_id):
             'form': form,
         }
         return render(request, 'staff/add_hotel.html', context)
+
+
+
+### Edit Hotel view
+def edit_hotel(request, id):
+    if request.user.is_staff or request.user.is_superuser:
+        instance = get_object_or_404(Hotels, id=id)
+
+        form = HotelsAddForm(request.POST or None, request.FILES or None, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('staff:hotels')
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'staff/add_hotel.html', context)
+
 
 
 ### Room View
@@ -125,4 +164,18 @@ def add_room(request, id):
 
 
 
+### Edit Room
+def edit_room(request, id):
+    if request.user.is_staff or request.user.is_superuser:
+        instance = get_object_or_404(Room, id=id)
+
+        form = RoomAddForm(request.POST or None, request.FILES or None, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('staff:rooms')
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'staff/add_room.html', context)
 

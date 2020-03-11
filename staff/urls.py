@@ -6,7 +6,11 @@ from . import views
 app_name = 'staff'
 
 urlpatterns = [
+
     path('', views.staff_home, name = "staff_home"),
+
+
+    path('view-booking', views.view_booking, name="view_booking"),
 
     #Places list and delete
     path('places/', views.places_list, name="places_list"),
@@ -20,11 +24,18 @@ urlpatterns = [
     path('rooms/', views.rooms, name="rooms"),
 
 
-    # Add hotels
+
+    # Edit Places
+    re_path('edit-places/(?P<id>\d+)/$',views.edit_places, name="edit_places"),
+
+
+
+    # Add hotels , Edit Hotel
     re_path('add-hotel/(?P<place_id>\d+)/$', views.addhotel, name="addhotel"),
+    re_path('edit-hotel/(?P<id>\d+)/$', views.edit_hotel, name="edit_hotel"),
 
 
-    # Add room
+    # Add room, Edit Room
     re_path('add-room/(?P<id>\d+)/$', views.add_room, name="add_room"),
-
+    re_path('edit-room/(?P<id>\d+)/$', views.edit_room, name = "edit_room"),
 ]
