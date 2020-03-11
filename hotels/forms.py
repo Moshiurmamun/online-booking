@@ -1,7 +1,8 @@
 from django import forms
-from .models import Room
+from .models import Room,Places, Hotels
 from booking.models import Booking
 
+""""
 class CreateFrom(forms.Form):
     quantity = forms.ModelChoiceField(queryset=Room.objects.all(), to_field_name='quantity')
 
@@ -13,8 +14,8 @@ class CreateFrom(forms.Form):
         deploy.save()
         return deploy
 
-
-
+"""
+"""
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
@@ -25,3 +26,51 @@ class BookingForm(forms.ModelForm):
             'checkout': forms.DateInput(attrs={'class': 'datepicker'})
         }
 
+"""
+
+###### Place Add Form
+class PlacesForm(forms.ModelForm):
+
+    class Meta:
+        model = Places
+        fields = [
+            'name',
+            'country',
+            'image',
+        ]
+
+
+#### Hotel Add Form
+class HotelsAddForm(forms.ModelForm):
+
+    class Meta:
+        model = Hotels
+        fields = [
+            'name',
+            'places',
+            'address',
+            'image',
+            'city',
+            'telephone',
+            'description',
+            'rating',
+        ]
+
+
+class RoomAddForm(forms.ModelForm):
+
+    class Meta:
+        model = Room
+
+        fields = [
+            'name',
+            'hotel',
+            'roomtype',
+            'image',
+            'capacity',
+            'price',
+            'quantity',
+            'discount',
+            'vat',
+            'service_charge',
+        ]

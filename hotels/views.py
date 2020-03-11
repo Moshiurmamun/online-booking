@@ -5,8 +5,11 @@ from django.views import generic
 from django.views import View
 from django.db.models import Q
 from booking.models import Booking
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
+
+# ============================= Place List like dhaka, coxsbazar etc....
 def place_list(request):
     places = Places.objects.all()
 
@@ -25,7 +28,7 @@ def place_list(request):
         request.session['checkin'] = Checkin
         request.session['checkout'] = Checkout
 
-        context = {'hotels': hotels_list}
+        context = {'object_list': hotels_list}
         return render(request, 'hotels/hotel_list.html', context)
 
     context = {
@@ -35,11 +38,22 @@ def place_list(request):
     return render(request, 'hotels/list.html', context )
 
 
+
+# ================ Hotels List ===================
 def hotels_list(request, id):
     #instance = get_object_or_404(Places, id=id)
     instance = Places.objects.get(id=id)
     hotels = Hotels.objects.filter(places=instance)
 
+
+    paginator = Paginator(hotels,2)
+    page = request.GET.get('page')
+    try:
+        queryset = paginator.page(page)
+    except PageNotAnInteger:
+        queryset = paginator.page(1)
+    except EmptyPage:
+        queryset = paginator.page(paginator.num_pages)
 
 ########Search
     Searchterm = request.POST.get("searchterm")
@@ -56,19 +70,19 @@ def hotels_list(request, id):
         request.session['checkin'] = Checkin
         request.session['checkout'] = Checkout
 
-        context = {'hotels': hotels_list}
+        context = {'object_list': hotels_list}
         return render(request, 'hotels/hotel_list.html', context)
 
     context = {
-        'hotels': hotels,
+        'object_list': queryset,
         'instance': instance,
     }
 
-
-
-
     return render(request, 'hotels/hotel_list.html', context)
 
+
+
+# ========================= Rooms List ========================
 def room_list(request, id):
 
     """"
@@ -107,6 +121,7 @@ def room_list(request, id):
 
     }
     return render(request, 'hotels/room_list.html', context)
+
 
 
 
