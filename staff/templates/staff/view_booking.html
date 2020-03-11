@@ -11,7 +11,6 @@
 <style>
 .sidenav {
   height: 100%;
-  width: 200px;
   z-index: 1;
   top: 0;
   left: 0;
@@ -61,9 +60,10 @@
 {% block content %}
 <br>
 <br>
+<br>
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
             <div class="sidenav">
                 <a>Profile</a>
                 <a>Dashboard</a>
@@ -83,18 +83,23 @@
             </div>
         </div>
 
-        <div class="col-md-8 col-sm-12">
-            <div class="row">
-                <div class="col-md-12">
-                    {% include 'staff/hotels_list.html' %}
-                </div>
-            </div>
+
+        <div class="col-md-10">
+            <h2>All Booking</h2>
+            <br>
+
         </div>
 
 
+        <div class="col-md-12 col-sm-12">
+            <div class="row">
+                <div class="col-md-6 col-sm-6">
+                    <h3>Apply request</h3>
 
+                </div>
 
-
+            </div>
+        </div>
 
 
     </div>

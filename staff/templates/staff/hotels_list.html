@@ -2,10 +2,10 @@
     {% for place in places  %}
         <thead>
             <tr>
-                <th class="float-left">
-                    <a href="">{{ place.name }}</a>
+                <th class="">
+                    <a href="{% url 'hotels:hotel_list' id=place.id %}">{{ place.name }}</a>
                 </th>
-                <th class="float-right">
+                <th class="">
                     <a href="{% url 'staff:addhotel' place_id=place.id %}" class="btn btn-primary">Add Hotel</a>
                 </th>
             </tr>
@@ -16,9 +16,13 @@
     <tbody>
         {% for hotel in hotels %}
         <tr>
-            <th>
-                <a>{{ hotel.name }}</a>
-            </th>
+            <th scope="row">{{ hotel.name }}</th>
+            <td>
+                <a href="{% url 'staff:add_room' id=hotel.id %}">Add Room</a>
+            </td>
+            <td>
+                <a href="{% url 'staff:edit_hotel' id=hotel.id %}">Edit Hotel</a>
+            </td>
         </tr>
 
         {% endfor %}

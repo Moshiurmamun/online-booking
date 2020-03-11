@@ -28,6 +28,10 @@
                         <th>
                             <a>{{ room.name }}</a>
                         </th>
+
+                        <td>
+                            <a href="{% url 'staff:edit_room' id=room.id %}">Edit Room</a>
+                        </td>
                     </tr>
                     {% endfor %}
 
