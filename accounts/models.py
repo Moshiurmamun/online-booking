@@ -51,6 +51,9 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
     lastname = models.CharField(max_length=255, null=True, blank=True)
     email = models.EmailField(max_length=255, unique=True)
     phone = models.CharField(max_length=255, null=True, blank=True)
+    image = models.ImageField(upload_to='user_image', null=True, blank=True)
+    address = models.CharField(max_length = 255, null=True, blank=True)
+    country = models.CharField(max_length=40, null=True,blank=True)
 
 
 

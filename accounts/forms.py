@@ -1,8 +1,8 @@
 from django import forms
 import re
 from django.contrib.auth import authenticate
-
-from . import models
+from accounts import models as account_model
+from django.contrib.auth.forms import PasswordChangeForm
 
 
 
@@ -98,3 +98,45 @@ class Login(forms.Form):
         password = self.cleaned_data.get('password')
         user = authenticate(email=email, password=password)
         return user
+
+
+
+
+
+
+
+class BasicInfoChangeForm(forms.ModelForm):
+
+    class Meta:
+        model = account_model.UserProfile
+        fields = [
+            'firstname',
+            'lastname',
+            'email',
+            'phone',
+            'image',
+            'address',
+            'country',
+
+        ]
+
+
+#change password form
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(label='Old Password', max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Old password'}))
+    new_password1 = forms.CharField(label='New Password', max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'New password'}))
+    new_password2 = forms.CharField(label='Confirm Password', max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Retype'}))
+
+    def clean(self):
+        old_password = self.cleaned_data.get('old_password')
+        new_password1 = self.cleaned_data.get('new_password1')
+        new_password2 = self.cleaned_data.get('new_password2')
+
+        if len(new_password1) < 8:
+            raise forms.ValidationError("Password is too short!")
+        else:
+            if new_password1 != new_password2:
+                raise forms.ValidationError("Password not matched!")
+
+
+
