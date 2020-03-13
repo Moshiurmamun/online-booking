@@ -54,7 +54,9 @@ class HotelsAddForm(forms.ModelForm):
             'telephone',
             'description',
             'rating',
+            'draft',
         ]
+
 
 
 class RoomAddForm(forms.ModelForm):

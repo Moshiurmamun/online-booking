@@ -6,7 +6,7 @@ from django.views import View
 from django.db.models import Q
 from booking.models import Booking
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from hotels.forms import HotelsAddForm
 
 
 # ============================= Place List like dhaka, coxsbazar etc....
@@ -43,7 +43,7 @@ def place_list(request):
 def hotels_list(request, id):
     #instance = get_object_or_404(Places, id=id)
     instance = Places.objects.get(id=id)
-    hotels = Hotels.objects.filter(places=instance)
+    hotels = Hotels.objects.active().filter(places=instance)
 
 
     paginator = Paginator(hotels,2)
@@ -151,3 +151,25 @@ class hotelSearch(View):
 
         return render(request, 'hotels/hotel_list.html', context)
 
+
+
+###### list_property
+def create_property(request, property_id):
+    places = Places.objects.get(id=property_id)
+
+    if request.method == 'POST':
+        form = HotelsAddForm(request.POST or None, request.FILES or None)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            instance.places = places
+            instance.save()
+            return redirect('home')
+    else:
+        form = HotelsAddForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'accounts/list_property.html', context)
