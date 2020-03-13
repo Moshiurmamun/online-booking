@@ -7,7 +7,8 @@ from . import forms
 from django.contrib.auth.models import User
 from accounts import models as account_model
 from django.contrib.auth import update_session_auth_hash
-
+from hotels.forms import HotelsAddForm
+from hotels.models import Places
 
 
 #register as user
@@ -164,3 +165,27 @@ class ChangePassword(ClientPermissionMixin, View):
         }
 
         return render(request, self.template_name, variables)
+
+
+
+###### list_property
+def create_property(request, user_id):
+    # print(property_id)
+    # places = Places.objects.get(id=property_id)
+    if request.method == 'POST':
+        form = HotelsAddForm(request.POST or None, request.FILES or None)
+
+        if form.is_valid():
+            instance = form.save(commit=False)
+            user = UserProfile.objects.get(id=user_id)
+            instance.user=user
+            instance.save()
+            return redirect('home')
+    else:
+        form = HotelsAddForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'accounts/list_property.html', context)

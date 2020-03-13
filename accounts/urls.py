@@ -10,6 +10,10 @@ urlpatterns = [
     path('logout/', views.logout_request, name="logout"),
     path('mydashboard/basic-info/', views.ChangeBasicInfo.as_view(), name='change-basic-info'),
     path('change/password/', views.ChangePassword.as_view(), name='change-password'),
+
+    #re_path('list-property/(?P<id>[0-9]+)/$', views.list_property, name="list_property"),
+    re_path('create-property/(?P<user_id>[0-9]+)/$', views.create_property, name="create_property"),
+
     re_path('mydashboard/(?P<profile_id>[0-9]+)/$', views.profile, name="profile"),
 
 ]

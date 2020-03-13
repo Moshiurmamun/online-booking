@@ -3,7 +3,7 @@ import re
 from django.contrib.auth import authenticate
 from accounts import models as account_model
 from django.contrib.auth.forms import PasswordChangeForm
-
+from . import models
 
 
 class UserRegistrationForm(forms.Form):
