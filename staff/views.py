@@ -6,7 +6,7 @@ from hotels.forms import PlacesForm, HotelsAddForm, RoomAddForm
 
 ### Home view for staff
 def staff_home(request):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         booking_list = Booking.objects.all()
 
         context = {
@@ -25,7 +25,7 @@ def view_booking(request):
 
 ### Places List
 def places_list(request):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         places_list = Places.objects.all()
 
 
@@ -38,7 +38,7 @@ def places_list(request):
 
 ### Add Places View
 def add_places(request):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         if request.method == 'POST':
             form = PlacesForm(request.POST or None, request.FILES or None)
             if form.is_valid():
@@ -57,7 +57,7 @@ def add_places(request):
 
 ### Edit Places View
 def edit_places(request, id):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         instance = get_object_or_404(Places, id=id)
 
         form = PlacesForm(request.POST or None, request.FILES or None, instance=instance)
@@ -72,7 +72,7 @@ def edit_places(request, id):
 
 ### Hotels View
 def hotels(request):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         places_list = Places.objects.all()
         hotels_list = Hotels.objects.all()
 
@@ -86,7 +86,7 @@ def hotels(request):
 
 ### Add Hotel View
 def addhotel(request, place_id):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         places = Places.objects.get(id=place_id)
 
         if request.method == 'POST':
@@ -110,7 +110,7 @@ def addhotel(request, place_id):
 
 ### Edit Hotel view
 def edit_hotel(request, id):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         instance = get_object_or_404(Hotels, id=id)
 
         form = HotelsAddForm(request.POST or None, request.FILES or None, instance=instance)
@@ -127,7 +127,7 @@ def edit_hotel(request, id):
 
 ### Room View
 def rooms(request):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         places_list = Places.objects.all()
         hotels_list = Hotels.objects.all()
         rooms_list = Room.objects.all()
@@ -143,7 +143,7 @@ def rooms(request):
 
 ### Add Room
 def add_room(request, id):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         hotel = Hotels.objects.get(id=id)
 
         if request.method == 'POST':
@@ -166,7 +166,7 @@ def add_room(request, id):
 
 ### Edit Room
 def edit_room(request, id):
-    if request.user.is_staff or request.user.is_superuser:
+    if request.user.is_superuser:
         instance = get_object_or_404(Room, id=id)
 
         form = RoomAddForm(request.POST or None, request.FILES or None, instance=instance)
