@@ -19,7 +19,7 @@ def place_list(request):
     if not Searchterm:
         hotels_list = Hotels.objects.all()
     elif Searchterm:
-        hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm))
+        hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm) | Q(description__icontains=Searchterm))
 
         Range = request.POST.get("daterange")
         Rangesplit = Range.split(' to ')
@@ -61,7 +61,7 @@ def hotels_list(request, id):
     if not Searchterm:
         hotels_list = Hotels.objects.all()
     elif Searchterm:
-        hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm))
+        hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm) | Q(description__icontains=Searchterm))
 
         Range = request.POST.get("daterange")
         Rangesplit = Range.split(' to ')
@@ -94,7 +94,7 @@ def room_list(request, id):
                 booking.checkin = form.cleaned_data.get('checkin')
                 booking.checkout = form.cleaned_data.get('checkout')
                 booking.save()
-"""
+    """
 
     thehotel = Hotels.objects.get(id=id)
     rooms = Room.objects.filter(hotel=thehotel)
@@ -135,7 +135,7 @@ class hotelSearch(View):
         if not Searchterm:
             hotels_list = Hotels.objects.all()
         elif Searchterm:
-            hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm))
+            hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm) | Q(description__icontains=Searchterm))
 
         Range = request.POST.get("daterange")
         Rangesplit = Range.split(' to ')
@@ -151,25 +151,3 @@ class hotelSearch(View):
 
         return render(request, 'hotels/hotel_list.html', context)
 
-
-
-###### list_property
-def create_property(request, property_id):
-    places = Places.objects.get(id=property_id)
-
-    if request.method == 'POST':
-        form = HotelsAddForm(request.POST or None, request.FILES or None)
-
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.places = places
-            instance.save()
-            return redirect('home')
-    else:
-        form = HotelsAddForm()
-
-    context = {
-        'form': form,
-    }
-
-    return render(request, 'accounts/list_property.html', context)
