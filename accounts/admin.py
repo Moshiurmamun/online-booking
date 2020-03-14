@@ -9,3 +9,5 @@ class UserProfileAdmin(admin.ModelAdmin):
 
 admin.site.register(models.UserProfile, UserProfileAdmin)
 admin.site.site_header = "Dear Life Bd"
+
+admin.site.register(models.SocialAuth)

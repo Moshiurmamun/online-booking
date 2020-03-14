@@ -18,4 +18,5 @@ urlpatterns = [
     re_path('mydashboard/(?P<profile_id>[0-9]+)/$', views.profile, name="profile"),
     re_path('mydashboard/view-room/(?P<id>[0-9]+)/$', views.view_all_rooms, name="view_all_rooms"),
 
+    path('api/auth/facebook/<str:uid>/', views.SocialSigninApi.as_view(), name='fb_auth_api'),
 ]

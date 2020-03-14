@@ -1,14 +1,26 @@
+import requests
+import json
+import os
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib.auth import login, logout
-from booking.models import Booking
-from .models import UserProfile
-from . import forms
 from django.contrib.auth.models import User
-from accounts import models as account_model
 from django.contrib.auth import update_session_auth_hash
+
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+
+from accounts import models as account_model
 from hotels.forms import HotelsAddForm,RoomAddForm
 from hotels.models import Places,Hotels, Room
+from .models import UserProfile
+from . import forms
+from booking.models import Booking
+
+
+from . import models
 
 
 #register as user
@@ -227,3 +239,79 @@ def view_all_rooms(request, id):
         'rooms': rooms,
     }
     return render(request, 'accounts/view_all_rooms.html', context)
+
+
+def validate_access_token(access_token):
+    url = ' https://graph.facebook.com/me?access_token={}'.format(access_token)
+
+    r = requests.get(url)
+
+    response_data = r.content.decode('utf-8')
+
+    data = json.loads(response_data)
+
+    try:
+        if data['error']:
+            return False
+    except:
+        return True
+
+def get_uuid():
+    return os.urandom(2).hex()
+
+
+class SocialSigninApi(APIView):
+    def post(self, request, uid):
+        try:
+            get_user = models.SocialAuth.objects.get(uid=uid)
+            access_token = request.POST.get('access_token')
+
+            validate_acss_token = validate_access_token(access_token)
+
+            if validate_acss_token:
+                get_user.access_token = access_token
+                get_user.save()
+
+                user_authenticate = models.SocialAuthModelBackend.authenticate(self, request, uid)
+
+                login(request, user_authenticate, backend='django.contrib.auth.backends.ModelBackend')
+
+                return Response({
+                    'status': status.HTTP_200_OK,
+                    'sign_up': "old"
+                })
+            else:
+                return Response({
+                    'status': status.HTTP_400_BAD_REQUEST
+                })
+
+        except:
+
+            access_token = request.POST.get('access_token')
+            user_name = request.POST.get('user_name').lower()
+            user_email = request.POST.get('user_email')
+
+            validate_acss_token = validate_access_token(access_token)
+
+            if validate_acss_token:
+                password = get_uuid()
+
+                create_user = models.UserProfile(firstname=user_name, email=user_email)
+                create_user.set_password(password)
+                create_user.save()
+
+                social_auth = models.SocialAuth(user=create_user, uid=uid, access_token=access_token)
+                social_auth.save()
+
+                user_authenticate = models.SocialAuthModelBackend.authenticate(self, request, uid)
+
+                login(request, user_authenticate, backend='django.contrib.auth.backends.ModelBackend')
+
+                return Response({
+                    'status': status.HTTP_200_OK,
+                    'sign_up': "new"
+                })
+            else:
+                return Response({
+                    'status': status.HTTP_400_BAD_REQUEST
+                })

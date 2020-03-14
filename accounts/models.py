@@ -70,3 +70,33 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
         """Django uses this when it needs to convert the object to a string"""
 
         return self.email
+
+
+
+
+
+class SocialAuthModelBackend(object):
+    def authenticate(self, request, uid=None):
+        try:
+            social_user = SocialAuth.objects.get(uid=uid)
+            return social_user.user
+        except:
+            return None
+
+    def get_user(self, uid):
+        try:
+            social_user = SocialAuth.objects.get(uid=uid)
+            return social_user.user
+        except SocialAuth.DoesNotExist:
+            return None
+
+
+#facebook login
+class SocialAuth(models.Model):
+    user = models.OneToOneField(UserProfile, on_delete=models.CASCADE, null=True, blank=True)
+    provider = models.CharField(max_length=255, default='Facebook', null=True, blank=True)
+    uid = models.CharField(max_length=255, null=True, blank=True)
+    access_token = models.TextField(max_length=2000, null=True, blank=True)
+
+    def __str__(self):
+        return str(self.uid)
