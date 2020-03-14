@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+
+            <div class="w3-card-1" style="border: 1px solid #ddd; border-radius:8px">
+                {% for room in rooms %}
+                <br>
+                <div class="w3-card-1"  style="border: 1px solid #ddd; border-radius:8px">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            {% if room.image %}
+
+
+                                <img src="{{ room.image.url }}" class="img-responsive" style="width:300px; height:200px">
+
+                        {% endif %}
+                        </div>
+
+
+                        <div class="col-lg-4">
+                            <h3>{{ room.name }}</h3>
+                            <p>{{ room.roomtype }}</p>
+                            <p>Capacity {{ room.capacity }}</p>
+
+                        </div>
+                        <div class="col-lg-4">
+                            <p>Price Per Night <b>BDT {{ room.price }}</b></p>
+                            <p>Save {{ room.discount }}%</p>
+                            <p>Service Charge {{ room.service_charge }}%</p>
+                            <p>Number of Rooms {{ room.quantity }}</p>
+
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            <br>
+            {% endfor %}
+        </div>
+
+
+
+        </div>
+        </div>
+    </div>
+</div>
+
+
+
+{% endblock content %}

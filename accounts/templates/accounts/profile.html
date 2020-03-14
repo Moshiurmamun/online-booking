@@ -5,17 +5,18 @@
 <br>
 <br>
 <br>
+<br>
 
 <div class="container">
     <div class="row">
         <div class="col-lg-3">
-            <div class="row">
+            <div class="row w3-card-1" style="padding:20px;border: 1px solid #ddd; border-radius:8px; height:600px">
                 <div class="col-lg-12">
                     <h5>{{ user.firstname }} {{ user.lastname }}</h5>
                 </div>
                 <div class="col-lg-12">
                     {% if user.image %}
-                    <img src="{{ user.image.url }}" class="img-responsive">
+                    <img src="{{ user.image.url }}" class="img-responsive" style="border-radius:50%">
                     {% endif %}
 
                 </div>
@@ -27,6 +28,9 @@
                     <a href="{% url 'accounts:create_property' user_id=user.id %}">Create Property</a>
 
                     <br>
+                    <br>
+
+                    <a>Bookings</a>
 
                 </div>
                 <div>
@@ -44,6 +48,39 @@
 
         <div class="col-lg-8 col-lg-offset-1">
             <h5>Hello {{user.firstname}}, it's nice to see you</h5>
+            <br>
+            <br>
+            <br>
+            <br>
+
+            {% for hotel in hotels %}
+                            <div class="w3-card-1" style="border: 1px solid #ddd; border-radius:8px">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
+                        {% if hotel.image %}
+                                        <a href="{% url 'hotels:room_list' id=hotel.id %}"><img src="{{ hotel.image.url }}" class="img-responsive" style="border-radius: 5px;;height:250px; width:300px"></a>
+
+                                            {% endif %}
+                                    </div>
+                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
+                                            <h3><b><a href="{% url 'hotels:room_list' id=hotel.id %}">{{ hotel.name }}</a></b></h3>
+                                            <p>{{ hotel.rating }}</p>
+                                            <p>{{ hotel.address }}</p>
+                                            <br>
+                                    <br>
+                                        </div>
+
+                                    <a type="submit" class="btn btn-primary" href="{% url 'accounts:add_room' id=hotel.id %}">Add Room</a>
+                                    <a type="submit" class="btn btn-primary" href="{% url 'accounts:view_all_rooms' id=hotel.id %}">View All Room</a>
+                                    <a type="submit" class="btn btn-primary">Edit Hotel</a>
+
+                                </div>
+
+
+                            </div>
+                            <br>
+
+            {% endfor %}
         </div>
     </div>
 </div>
