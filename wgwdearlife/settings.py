@@ -38,12 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'rest_framework',
+
     'accounts',
     'hotels',
     'booking',
     'staff',
 
-    'social_django',
+    #'social_django',
 
     #Third party
     'crispy_forms',
@@ -153,27 +155,10 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 AUTH_USER_MODEL = 'accounts.UserProfile'
 
 AUTHENTICATION_BACKENDS = (
-    'social_core.backends.facebook.FacebookOAuth2',
-
+    'accounts.models.SocialAuthModelBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
+
 #LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
-
-
-
-SOCIAL_AUTH_FACEBOOK_KEY = '529750667668812'       # App ID
-SOCIAL_AUTH_FACEBOOK_SECRET = '3c5d28f979422b4573317ec3d3e66a0e'    #AppSecret
-
-
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email'] # add this
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
-  'fields': 'id, name, email',
-}
-SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
-    ('name', 'name'),
-    ('email', 'email'),
-    ('picture', 'picture'),
-    ('link', 'profile_url'),
-]
