@@ -9,39 +9,130 @@
 
 
 {% block content %}
-<br>
-<br>
-<br>
+    <br>
+    <br>
+    <br>
 
 
-<div class="row" style="margin-top:0px">
-    <div class="col-lg-3 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
-        <div class="w3-card-2" style="padding:20px">
-            <h3 class="text-center"><b>Sign In</b></h3>
-        <form method="POST" action="" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form|crispy }}
-            <input type="submit" class="btn btn-success" value="Sign In">
-        </form>
+    <script>
+        window.fbAsyncInit = function() {
+          FB.init({
+            appId      : '1624842857605149',
+            cookie     : true,
+            xfbml      : true,
+            version    : 'v3.2'
+          });
+
+          FB.AppEvents.logPageView();
+        };
+
+        (function(d, s, id){
+           var js, fjs = d.getElementsByTagName(s)[0];
+           if (d.getElementById(id)) {return;}
+           js = d.createElement(s); js.id = id;
+           js.src = "https://connect.facebook.net/en_US/sdk.js";
+           fjs.parentNode.insertBefore(js, fjs);
+         }(document, 'script', 'facebook-jssdk'));
+
+    </script>
 
 
-        <p class="text-center"><strong> or sign in with </strong></p>
-            <div class="row">
-            <div class="col-lg-6">
-        <a class="fb btn" href="{% url 'social:begin' 'facebook' %}">Facebook</a>
+    <div class="row" style="margin-top:0px">
+        <div class="col-lg-3 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+
+
+
+            <!--fb login btn-->
+
+
+            <center>
+                <div class="fb-login-button" data-width="" data-size="medium" data-onlogin="checkLoginState();" data-scope="public_profile,email" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false"></div>
+            </center>
+
+            <div class="" style="margin-top: 10px; color: red; margin-bottom: 10px;" id="fb_error">
             </div>
-            <div class="col-lg-6 ">
-            <a class="google btn">Google</a>
+
+
+            <!--fb login btn-->
+
+
+
+
+            <div class="w3-card-2" style="padding:20px">
+                <h3 class="text-center"><b>Sign In</b></h3>
+            <form method="POST" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" class="btn btn-success" value="Sign In">
+            </form>
+
+
+            <p class="text-center"><strong> or sign in with </strong></p>
+                <div class="row">
+                <div class="col-lg-6">
+            <a class="fb btn" href="#">Facebook</a>
+                </div>
+                <div class="col-lg-6 ">
+                <a class="google btn">Google</a>
+                </div>
+                </div>
+                <br>
+                <p>Don't have an account yet? <a href="{% url 'accounts:signup' %}">Sign up</a> </p>
+                <br>
             </div>
-            </div>
-            <br>
-            <p>Don't have an account yet? <a href="{% url 'accounts:signup' %}">Sign up</a> </p>
-            <br>
         </div>
     </div>
-</div>
-
-
-
-
 {% endblock content %}
+
+{% block javascript %}
+    <script>
+       function checkLoginState() {
+         FB.getLoginStatus(function(response) {
+           statusChangeCallback(response);
+         });
+       }
+
+       function statusChangeCallback(response) {
+           try{
+               $("#fb_error").html(" ")
+               access_token = response.authResponse.accessToken;
+               uid = response.authResponse.userID;
+
+               if (response.status === 'connected') {
+                   FB.api('/me?fields=name,id,email', function (response) {
+                       console.log(response);
+                       user_name = response.name;
+                       user_email = response.email;
+
+                       $.ajax({
+                            url: '/accounts/api/auth/facebook/'+uid+'/',
+                            data: {'access_token': access_token, 'user_name': user_name, 'user_email': user_email, 'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                            type: 'post',
+                            dataType: 'json',
+                            success: function (data) {
+                                if(data.status === 200){
+                                    location.href = "/";
+                                }
+
+                                if(data.status === 400){
+                                    $("#fb_error").html("Cant sign in with facebook! Try again later!")
+                                }else{
+                                    $("#fb_error").html(" ")
+                                }
+                            }
+                        });
+
+
+                   });
+               } else {
+                   console.log('login to facebook');
+               }
+
+           }catch(err){
+                $("#fb_error").html("Cant sign in with facebook! Try again later!")
+           }
+
+       }
+
+    </script>
+{% endblock %}
