@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from booking.models import Booking
 from hotels.models import Hotels, Places, Room
-from hotels.forms import PlacesForm, HotelsAddForm, RoomAddForm
+from hotels.forms import PlacesForm, HotelsAddFormAdmin, RoomAddForm
 
 
 ### Home view for staff
@@ -90,7 +90,7 @@ def addhotel(request, place_id):
         places = Places.objects.get(id=place_id)
 
         if request.method == 'POST':
-            form = HotelsAddForm(request.POST or None, request.FILES or None)
+            form = HotelsAddFormAdmin(request.POST or None, request.FILES or None)
 
             if form.is_valid():
                 instance = form.save(commit=False)
@@ -99,7 +99,7 @@ def addhotel(request, place_id):
                 return redirect('staff:hotels')
 
         else:
-            form = HotelsAddForm()
+            form = HotelsAddFormAdmin()
 
         context = {
             'form': form,
@@ -113,7 +113,7 @@ def edit_hotel(request, id):
     if request.user.is_superuser:
         instance = get_object_or_404(Hotels, id=id)
 
-        form = HotelsAddForm(request.POST or None, request.FILES or None, instance=instance)
+        form = HotelsAddFormAdmin(request.POST or None, request.FILES or None, instance=instance)
         if form.is_valid():
             form.save()
             return redirect('staff:hotels')
@@ -178,4 +178,3 @@ def edit_room(request, id):
             'form': form,
         }
         return render(request, 'staff/add_room.html', context)
-
