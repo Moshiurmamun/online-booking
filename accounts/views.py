@@ -7,8 +7,8 @@ from . import forms
 from django.contrib.auth.models import User
 from accounts import models as account_model
 from django.contrib.auth import update_session_auth_hash
-from hotels.forms import HotelsAddForm
-from hotels.models import Places
+from hotels.forms import HotelsAddForm,RoomAddForm
+from hotels.models import Places,Hotels, Room
 
 
 #register as user
@@ -77,18 +77,6 @@ class Login(View):
 
         return render(request, self.template_name, variables)
 
-
-
-# Profile
-def profile(request, profile_id):
-    user = get_object_or_404(account_model.UserProfile, id=profile_id)
-    #userprofile = account_model.UserProfile.objects.get(user = user)
-
-
-    context = {
-        'user': user,
-    }
-    return render(request, 'accounts/profile.html', context)
 
 
 
@@ -168,6 +156,21 @@ class ChangePassword(ClientPermissionMixin, View):
 
 
 
+##### Profile
+def profile(request, profile_id):
+    user = get_object_or_404(account_model.UserProfile, id=profile_id)
+    #userprofile = account_model.UserProfile.objects.get(user = user)
+    hotels = Hotels.objects.filter(user=user)
+
+    context = {
+        'user': user,
+        'hotels': hotels,
+    }
+    return render(request, 'accounts/profile.html', context)
+
+
+
+
 ###### list_property
 def create_property(request, user_id):
     # print(property_id)
@@ -186,6 +189,41 @@ def create_property(request, user_id):
 
     context = {
         'form': form,
+
     }
 
     return render(request, 'accounts/list_property.html', context)
+
+
+
+#### Add Room
+def add_room(request, id):
+
+    if request.method == 'POST':
+        form = RoomAddForm(request.POST or None, request.FILES or None)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            user = UserProfile.objects.get(id=id)
+            instance.user = user
+            instance.save()
+            return redirect('home')
+    else:
+        form = RoomAddForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/create_rooms.html', context)
+
+
+#### View All Room
+def view_all_rooms(request, id):
+    user = get_object_or_404(account_model.UserProfile, id=id)
+
+    rooms = Room.objects.filter(user=user)
+    print(rooms)
+
+    context = {
+        'rooms': rooms,
+    }
+    return render(request, 'accounts/view_all_rooms.html', context)

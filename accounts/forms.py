@@ -137,6 +137,3 @@ class ChangePasswordForm(PasswordChangeForm):
         else:
             if new_password1 != new_password2:
                 raise forms.ValidationError("Password not matched!")
-
-
-
