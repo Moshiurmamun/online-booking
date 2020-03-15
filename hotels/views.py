@@ -81,8 +81,9 @@ def hotels_list(request, id):
     return render(request, 'hotels/hotel_list.html', context)
 
 
-
 # ========================= Rooms List ========================
+
+
 def room_list(request, id):
 
     """"
