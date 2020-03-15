@@ -80,7 +80,7 @@
                             {% if place.image %}
 
 
-                                <a href="{% url 'hotels:hotel_list' id=place.id %}"><img src="{{ place.image.url }}" class="img-responsive" style="width: 600px; height: 300px"></a>
+                                <a href="{{ place.get_absolute_url }}"><img src="{{ place.image.url }}" class="img-responsive" style="width: 600px; height: 300px"></a>
                                     <p style="position: absolute; top:50%;left:50%;font-size:25px ; color:White; font-weight:bold;transform: translate(-50%, -50%);">{{ place.name }}</p>
 
 

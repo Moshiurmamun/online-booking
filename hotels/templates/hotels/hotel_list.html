@@ -34,12 +34,12 @@
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {% if hotel.image %}
-                                        <a href="{% url 'hotels:room_list' id=hotel.id %}"><img src="{{ hotel.image.url }}" class="img-responsive" style="border-radius: 5px;;height:250px; width:300px"></a>
+                                        <a href="{{ hotel.get_absolute_url }}"><img src="{{ hotel.image.url }}" class="img-responsive" style="border-radius: 5px;;height:250px; width:300px"></a>
 
                                             {% endif %}
                                     </div>
                                         <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                                            <h3><b><a href="{% url 'hotels:room_list' id=hotel.id %}" style="color:#003d99;text-decoration:none">{{ hotel.name }}</a></b></h3>
+                                            <h3><b><a href="{{ hotel.get_absolute_url }}" style="color:#003d99;text-decoration:none">{{ hotel.name }}</a></b></h3>
                                             <p>{{ hotel.rating }}</p>
                                             <p>{{ hotel.address }}</p>
                                         </div>

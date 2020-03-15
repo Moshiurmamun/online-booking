@@ -17,7 +17,7 @@
                                         {% endif %}
                                     </div>
                                     <div class="col-lg-5">
-                                        <h3><a href="{% url 'hotels:room_list' id=hotel.id %}">{{ hotel.name }}</a></h3>
+                                        <h3><a href="{% url 'hotels:room_list' slug=hotel.slug %}">{{ hotel.name }}</a></h3>
                                         <p>{{ hotel.rating }}</p>
                                         <p>{{ hotel.address }}</p>
                                     </div>
@@ -71,7 +71,7 @@
 
 
 
-                            <a href="{% url 'booking:bookroom' hotel.id room.id %}" class="btn btn-success">Book Now</a>
+                            <a href="{% url 'booking:bookroom' hotel.slug room.slug %}" class="btn btn-success">Book Now</a>
 
                         </div>
 
