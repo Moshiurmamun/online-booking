@@ -9,9 +9,9 @@
 
 
 {% block content %}
-    <br>
-    <br>
-    <br>
+<br>
+<br>
+<br>
 
 
     <script>
@@ -37,12 +37,11 @@
     </script>
 
 
-    <div class="row" style="margin-top:0px">
-        <div class="col-lg-3 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
+<div class="row" style="margin-top:0px">
+    <div class="col-lg-3 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-8 col-sm-offset-2 col-xs-10 col-xs-offset-1">
 
 
-
-            <!--fb login btn-->
+         <!--fb login btn-->
 
 
             <center>
@@ -53,36 +52,42 @@
             </div>
 
 
-            <!--fb login btn-->
+        <!--fb login btn-->
 
 
 
 
-            <div class="w3-card-2" style="padding:20px">
-                <h3 class="text-center"><b>Sign In</b></h3>
-            <form method="POST" action="" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form|crispy }}
-                <input type="submit" class="btn btn-success" value="Sign In">
-            </form>
 
 
-            <p class="text-center"><strong> or sign in with </strong></p>
-                <div class="row">
-                <div class="col-lg-6">
-            <a class="fb btn" href="#">Facebook</a>
-                </div>
-                <div class="col-lg-6 ">
-                <a class="google btn">Google</a>
-                </div>
-                </div>
-                <br>
-                <p>Don't have an account yet? <a href="{% url 'accounts:signup' %}">Sign up</a> </p>
-                <br>
+        <div class="w3-card-2" style="padding:20px">
+            <h3 class="text-center"><b>Sign In</b></h3>
+        <form method="POST" action="" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" class="btn btn-success" value="Sign In">
+        </form>
+
+
+        <p class="text-center"><strong> or sign in with </strong></p>
+            <div class="row">
+            <div class="col-lg-6">
+        <a class="fb btn" href="#">Facebook</a>
             </div>
+            <div class="col-lg-6 ">
+            <a class="google btn">Google</a>
+            </div>
+            </div>
+            <br>
+            <p>Don't have an account yet? <a href="{% url 'accounts:signup' %}">Sign up</a> </p>
+            <br>
         </div>
     </div>
+</div>
+
+
 {% endblock content %}
+
+
 
 {% block javascript %}
     <script>
