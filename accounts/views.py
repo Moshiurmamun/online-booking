@@ -2,25 +2,25 @@ import requests
 import json
 import os
 
-from django.shortcuts import render, redirect, get_object_or_404
-from django.views import View
-from django.contrib.auth import login, logout
-from django.contrib.auth.models import User
-from django.contrib.auth import update_session_auth_hash
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 
-from accounts import models as account_model
-from hotels.forms import HotelsAddForm,RoomAddForm
-from hotels.models import Places,Hotels, Room
-from .models import UserProfile
-from . import forms
-from booking.models import Booking
-
 
 from . import models
+
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views import View
+from django.contrib.auth import login, logout
+from booking.models import Booking
+from .models import UserProfile
+from . import forms
+from django.contrib.auth.models import User
+from accounts import models as account_model
+from django.contrib.auth import update_session_auth_hash
+from hotels.forms import HotelsAddForm,RoomAddForm
+from hotels.models import Places,Hotels, Room
 
 
 #register as user
@@ -183,7 +183,7 @@ def profile(request, profile_id):
 
 
 
-###### list_property
+# ====================== Client create list_property ======================
 def create_property(request, user_id):
     # print(property_id)
     # places = Places.objects.get(id=property_id)
@@ -208,14 +208,35 @@ def create_property(request, user_id):
 
 
 
-#### Add Room
-def add_room(request, id):
+
+# ========================= Edit Property ========================
+""""
+def edit_property(request, id):
+
+    instance = get_object_or_404(account_model.UserProfile, id=id)
+    form = HotelsAddForm(request.POST or None, request.FILES or None,instance=instance)
+
+
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'accounts/edit_property.html', context)
+
+"""
+
+
+#### Client Add Room
+def add_room(request, r_id):
 
     if request.method == 'POST':
         form = RoomAddForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             instance = form.save(commit=False)
-            user = UserProfile.objects.get(id=id)
+            user = UserProfile.objects.get(id=r_id)
             instance.user = user
             instance.save()
             return redirect('home')
@@ -241,6 +262,10 @@ def view_all_rooms(request, id):
     return render(request, 'accounts/view_all_rooms.html', context)
 
 
+
+
+
+# ============================================ Facebook Login ====================================== #
 def validate_access_token(access_token):
     url = ' https://graph.facebook.com/me?access_token={}'.format(access_token)
 

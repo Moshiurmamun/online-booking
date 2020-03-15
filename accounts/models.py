@@ -74,7 +74,7 @@ class UserProfile(AbstractBaseUser, PermissionsMixin):
 
 
 
-
+#### Facebook Login
 class SocialAuthModelBackend(object):
     def authenticate(self, request, uid=None):
         try:
