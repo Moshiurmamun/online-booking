@@ -2,6 +2,10 @@ from django.db import models
 from django.urls import reverse
 from accounts.models import UserProfile
 
+from django.db.models.signals import pre_save, post_save
+from django.utils.text import slugify
+
+
 
 
 def upload_location(instance, filename):
@@ -16,12 +20,29 @@ class Places(models.Model):
     name = models.CharField(max_length=255)
     country = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to='places_image', null=True, blank=True)
-
+    slug = models.SlugField(unique=True)
 
     def __str__(self):
         return self.name
 
 
+    def get_absolute_url(self):
+        return reverse('hotels:hotel_list', kwargs={"slug": self.slug})
+
+
+    def _get_unique_slug(self):
+        slug = slugify(self.name)
+        unique_slug = slug
+        num=1
+        while Places.objects.filter(slug=unique_slug).exists():
+            unique_slug = '{}-{}'.format(slug, num)
+            num +=1
+        return unique_slug
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = self._get_unique_slug()
+        super().save()
 
 
 
@@ -36,10 +57,21 @@ class Hotels(models.Model):
     description = models.TextField(null=True, blank=True)
     rating = models.FloatField()
     draft = models.BooleanField(default=True)
+    slug = models.SlugField(unique=True, blank=True)
 
 
     def __str__(self):
         return self.name
+
+
+    def save(self, *args, **kwargs):
+        self.slug = '-'.join((slugify(self.places.name), slugify(self.name)))
+        super(Hotels, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('hotels:room_list', kwargs={"slug": self.slug})
+
+
 
     objects = HotelsManager()
 
@@ -58,6 +90,11 @@ class Room(models.Model):
     discount = models.FloatField(default=0, null=True, blank=True)
     vat = models.FloatField(default=0, null=True, blank=True)
     service_charge = models.FloatField(default=0, null=True, blank=True)
+    slug = models.SlugField(unique=True, blank=True)
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.slug = '-'.join((slugify(self.hotel.name), slugify(self.name)))
+        super(Room, self).save(*args, **kwargs)

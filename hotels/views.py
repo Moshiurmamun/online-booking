@@ -40,9 +40,9 @@ def place_list(request):
 
 
 # ================ Hotels List ===================
-def hotels_list(request, id):
+def hotels_list(request, slug):
     #instance = get_object_or_404(Places, id=id)
-    instance = Places.objects.get(id=id)
+    instance = Places.objects.get(slug=slug)
     hotels = Hotels.objects.active().filter(places=instance)
 
 
@@ -84,7 +84,7 @@ def hotels_list(request, id):
 # ========================= Rooms List ========================
 
 
-def room_list(request, id):
+def room_list(request, slug):
 
     """"
     form = BookingForm(request.POST or None)
@@ -97,7 +97,7 @@ def room_list(request, id):
                 booking.save()
     """
 
-    thehotel = Hotels.objects.get(id=id)
+    thehotel = Hotels.objects.get(slug=slug)
     rooms = Room.objects.filter(hotel=thehotel)
 
 
