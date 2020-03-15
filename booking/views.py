@@ -16,8 +16,8 @@ def bookroom(request, hotelid, roomid):
 
     stayduration = timedeltaSum.days
 
-    hotel = Hotels.objects.get(id=hotelid)
-    theroom = Room.objects.get(id=roomid)
+    hotel = Hotels.objects.get(slug=hotelid)
+    theroom = Room.objects.get(slug=roomid)
 
     price = theroom.price
 

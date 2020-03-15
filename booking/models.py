@@ -23,6 +23,7 @@ class Booking(models.Model):
         return self.booking_id
 
 
+
 def pre_save_create_booking_id(sender, instance, *args, **kwargs):
     if not instance.booking_id:
         instance.booking_id = unique_booking_id_generator(instance)
