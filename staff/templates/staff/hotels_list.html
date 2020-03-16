@@ -3,7 +3,8 @@
         <thead>
             <tr>
                 <th class="">
-                    <a href="{% url 'hotels:hotel_list' id=place.id %}">{{ place.name }}</a>
+                    <a href="{% url 'hotels:hotel_list' slug=place.slug %}">{{ place.name }}</a>
+
                 </th>
                 <th class="">
                     <a href="{% url 'staff:addhotel' place_id=place.id %}" class="btn btn-primary">Add Hotel</a>

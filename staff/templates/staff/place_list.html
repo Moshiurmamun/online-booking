@@ -1,14 +1,20 @@
 <table class="table">
     <tbody>
+
+
+<br>
+                <a class="btn btn-primary" href="{% url 'staff:add_places' %}">Add Places</a>
         {% for place in places %}
     <tr>
         <td>
-            <h5><a href="{% url 'hotels:hotel_list' id=place.id  %}">{{ place.name }}</a></h5>
+            <h5><a href="{% url 'hotels:hotel_list' slug=place.slug  %}">{{ place.name }}</a></h5>
+
         </td>
         <td>
             <a href="{% url 'staff:edit_places' id=place.id %}" class="btn">Edit</a>
         </td>
     </tr>
+
         {% endfor %}
     </tbody>
 
