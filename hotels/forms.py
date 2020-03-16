@@ -121,6 +121,7 @@ class HotelsAddFormAdmin(forms.ModelForm):
         fields = [
             'name',
             'places',
+            'user',
             'address',
             'image',
             'city',

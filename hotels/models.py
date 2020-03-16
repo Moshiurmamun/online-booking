@@ -77,10 +77,9 @@ class Hotels(models.Model):
 
 
 
-
 class Room(models.Model):
     name = models.CharField(max_length=255)
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE,null=True)
     hotel = models.ForeignKey(Hotels, on_delete=models.CASCADE, null=True, blank=True)
     roomtype = models.CharField(max_length=255, null=True, blank=True)
     image = models.ImageField(upload_to='rooms_image', null=True, blank=True,)
