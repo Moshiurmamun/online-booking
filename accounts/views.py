@@ -53,14 +53,14 @@ class RegistrationUser(View):
 
 
 
-#logout functionality
+# =====================logout functionality===================
 def logout_request(request):
     logout(request)
     return redirect('accounts:login')
 
 
 
-#login
+#=======================login ==================================
 class Login(View):
     template_name = 'accounts/login.html'
 
@@ -106,7 +106,7 @@ class ClientPermissionMixin(object):
             return redirect('accounts:login')
 
 
-#change basic info
+# =====================change basic info=====================
 class ChangeBasicInfo(ClientPermissionMixin, View):
     template_name = 'accounts/change-basic-info.html'
 
@@ -137,7 +137,7 @@ class ChangeBasicInfo(ClientPermissionMixin, View):
 
 
 
-#change password
+#=======================change password==========================
 class ChangePassword(ClientPermissionMixin, View):
     template_name = 'accounts/change-password.html'
 
@@ -168,7 +168,7 @@ class ChangePassword(ClientPermissionMixin, View):
 
 
 
-##### Profile
+#====================== Profile =======================
 def profile(request, profile_id):
     user = get_object_or_404(account_model.UserProfile, id=profile_id)
     #userprofile = account_model.UserProfile.objects.get(user = user)
@@ -192,7 +192,7 @@ def create_property(request, user_id):
 
         if form.is_valid():
             instance = form.save(commit=False)
-            user = UserProfile.objects.get(id=user_id)
+            user = UserProfile.objects.get(email=request.user)
             instance.user=user
             instance.save()
             return redirect('home')
@@ -208,35 +208,52 @@ def create_property(request, user_id):
 
 
 
-
 # ========================= Edit Property ========================
-""""
-def edit_property(request, id):
 
-    instance = get_object_or_404(account_model.UserProfile, id=id)
-    form = HotelsAddForm(request.POST or None, request.FILES or None,instance=instance)
+def edit_property(request, hotel_id):
+
+        instance = get_object_or_404(Hotels, id=hotel_id)
+
+        form = HotelsAddForm(request.POST or None, request.FILES or None,instance=instance)
 
 
-    if form.is_valid():
-        form.save()
-        return redirect('/')
+        if form.is_valid():
+            form.save()
+            return redirect('/')
+
+        context = {
+            'form': form,
+        }
+        return render(request, 'accounts/edit_property.html', context)
+
+
+
+
+
+
+
+
+
+# ==================================== View All Room =========================== #
+def view_all_rooms(request):
+    user = UserProfile.objects.get(email=request.user)
+
+    rooms = Room.objects.filter(user=user)
 
     context = {
-        'form': form,
+        'rooms': rooms,
     }
-    return render(request, 'accounts/edit_property.html', context)
-
-"""
+    return render(request, 'accounts/view_all_rooms.html', context)
 
 
-#### Client Add Room
-def add_room(request, r_id):
 
+# ========================================== Add Room ================================
+def add_room(request):
     if request.method == 'POST':
         form = RoomAddForm(request.POST or None, request.FILES or None)
         if form.is_valid():
             instance = form.save(commit=False)
-            user = UserProfile.objects.get(id=r_id)
+            user = UserProfile.objects.get(email=request.user)
             instance.user = user
             instance.save()
             return redirect('home')
@@ -249,23 +266,27 @@ def add_room(request, r_id):
     return render(request, 'accounts/create_rooms.html', context)
 
 
-#### View All Room
-def view_all_rooms(request, id):
-    user = get_object_or_404(account_model.UserProfile, id=id)
+# ============================= Edit Room ==================================
+def edit_room(request, room_id):
 
-    rooms = Room.objects.filter(user=user)
-    print(rooms)
+    instance = get_object_or_404(Room, id=room_id)
+    form = RoomAddForm(request.POST or None, request.FILES or None, instance=instance)
 
+    if form.is_valid():
+        form.save()
+        return redirect('/')
     context = {
-        'rooms': rooms,
+        'form': form,
     }
-    return render(request, 'accounts/view_all_rooms.html', context)
+
+    return render(request, 'accounts/edit_room.html', context)
 
 
 
 
 
-# ============================================ Facebook Login ====================================== #
+
+# =============================================== Facebook Login ====================================== #
 def validate_access_token(access_token):
     url = ' https://graph.facebook.com/me?access_token={}'.format(access_token)
 
