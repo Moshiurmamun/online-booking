@@ -36,7 +36,7 @@
                             <p>Service Charge {{ room.service_charge }}%</p>
                             <p>Number of Rooms {{ room.quantity }}</p>
 
-
+                            <a type="submit" class="btn btn-success" href="{% url 'accounts:edit_room' room_id=room.id %}">Edit room</a>
 
                         </div>
 
