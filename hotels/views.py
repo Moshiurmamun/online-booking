@@ -120,9 +120,18 @@ def room_list(request, slug):
         Roomsleft = Roomsavailable - count
         room.spaceleft = Roomsleft
 
+
+    total_room=[]
+    for r in rooms:
+        data = [r.id,r.quantity]
+        total_room.append(data)
+
+
     context = {
+        'total_room':total_room,
         'rooms': rooms,
         'hotel': thehotel,
+
 
     }
     return render(request, 'hotels/room_list.html', context)
