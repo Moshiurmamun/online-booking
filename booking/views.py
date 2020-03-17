@@ -31,7 +31,12 @@ def bookroom(request, hotelid, roomid):
 
     price = theroom.price
 
-    totalcost = stayduration * price
+
+    if request.method=="POST":
+        room_no=request.POST.get(roomid)
+        print(room_no)
+
+    p = stayduration * price * float(room_no)
 
     context = {
         'checkin': checkin,
@@ -40,7 +45,9 @@ def bookroom(request, hotelid, roomid):
         'hotel': hotel,
         'theroom': theroom,
         'price':price,
-        'totalcost':totalcost,
+
+        'r':room_no,
+        'p': p,
     }
     return render(request, 'booking/booking.html', context)
 
