@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 
 {% block content %}
 
@@ -28,12 +28,16 @@
                     <p>Cancellation Policy: </p>
 
                     <p>Price {{ theroom.price }}</p>
-
-
-                    <p>booking id: {{ booking_id }}</p>
+                    <p>booking id: {{ invoice }}</p>
 
                     <p>Quantity: {{ r }}</p>
-                    <p>Total cost: {{ p }}</p>
+                    <p>Total cost: {{ totalcost }}</p>
+
+
+                    <form method="POST" action="{% url 'booking:newbooking' theroom.id hotel.id checkin checkout  totalcost %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-success">Book Now</button>
+                    </form>
 
 
                     <br>
@@ -41,13 +45,10 @@
                     <br>
 
 <!--
-                 <form method="POST" action="">
+                 <form method="POST" action="">checkin_year checkin_month checkin_date checkout_year checkout_month checkout_date
                      {% csrf_token %}
-
                      <button type="submit" class="btn btn-success" value="Book now"></button>
-
                  </form>
-
 -->
 
 
