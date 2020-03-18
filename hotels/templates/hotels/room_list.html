@@ -1,5 +1,3 @@
-
-98
 {% extends 'base.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
@@ -84,8 +82,8 @@
 </div>
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded',roomOption());
-    
-    function roomOption(){   
+
+    function roomOption(){
         var totalroom = {{total_room}};
         for(let index in totalroom){
             roomId = "room"+totalroom[index][0];
@@ -97,7 +95,7 @@
             }
             console.log(option)
             roomSelect.innerHTML=option;
-        }                
-    }     
+        }
+    }
 </script>
 {% endblock content %}
