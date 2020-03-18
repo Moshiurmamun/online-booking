@@ -12,7 +12,7 @@ class Booking(models.Model):
     hotel = models.ForeignKey(Hotels, on_delete=models.CASCADE)
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    booking_id = models.CharField(max_length=120, blank=True)
+    invoice = models.CharField(max_length=120, blank=True)
     status = models.CharField(max_length=120, default = 'Requested', choices=APPLY_STATUS_CHOICES)
     creation_date = models.DateTimeField(auto_now=True)
     checkin = models.DateField()
@@ -20,13 +20,13 @@ class Booking(models.Model):
     totalcost = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.booking_id
+        return self.invoice
+
+
+# def pre_save_create_booking_id(sender, instance, *args, **kwargs):
+#     if not instance.booking_id:
+#         instance.booking_id = unique_booking_id_generator(instance)
 
 
 
-def pre_save_create_booking_id(sender, instance, *args, **kwargs):
-    if not instance.booking_id:
-        instance.booking_id = unique_booking_id_generator(instance)
-
-
-pre_save.connect(pre_save_create_booking_id, sender=Booking)
+# pre_save.connect(pre_save_create_booking_id, sender=Booking)
