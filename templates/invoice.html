@@ -1,0 +1,45 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="content-type" content="text/html" charset="utf-8">
+    <link href="" rel="stylesheet">
+    <title>Booking Confirmation</title>
+
+</head>
+  <body>
+    <div class="row">
+      <div class="col-md-6 col-md-offset-3 ">
+
+        <div class="container">
+          <center>
+            <!-- Displays the Hotel Details -->
+            <div class="panel panel-default">
+              <div class="panel-heading"><h1 class="big">Check-In.com Reservation</h1></div>
+
+                <div class="panel-body">
+                  <h1><b>{{booking.hotel.name}}  </b></h1>
+                  <p>{{booking.hotel.description}}</p>
+                  <p>Address: {{booking.hotel.address}}
+                  <p>Contact: {{booking.hotel.telephone}}</p>
+                </div>
+            </div>
+              <!-- Displays the Booking Details such as Room name etc.. -->
+            <div class="panel panel-default">
+              <div class="panel-heading"><h3>Booking Details</h3></div>
+                <div class="panel-body">
+
+                   <p><b>Reference Number: </b>{{booking.id}}</p>
+                    <p><b>Guest Name:</b>{{booking.user.email}}
+                    <p><b>Check In Date:  </b>{{booking.checkin}}  / <b>Check Out Date:  </b>  {{booking.checkout}}</p>
+                    <p><b>Room Name:</b> {{booking.room.roomtype}}</p>
+                    <p><b>Total Price: BDT </b>{{booking.totalcost}} </p>
+                    <p><b>Invoice </b>{{booking.invoice}} </p>
+                </div>
+            </div>
+            </center>
+      </div>
+    </div>
+    </div>
+  </body>
+  </html>
