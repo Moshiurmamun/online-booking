@@ -24,7 +24,6 @@ from hotels import views as place_view
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
-    #path('oauth/' ,include('social_django.urls'), name="social"),
 
     path('hotels/', include('hotels.urls')),
     path('booking/', include('booking.urls')),

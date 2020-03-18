@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+
     'rest_framework',
 
     'accounts',
@@ -45,10 +46,11 @@ INSTALLED_APPS = [
     'booking',
     'staff',
 
-    #'social_django',
+
 
     #Third party
     'crispy_forms',
+    'bootstrap_modal_forms',
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
@@ -156,9 +158,12 @@ AUTH_USER_MODEL = 'accounts.UserProfile'
 
 AUTHENTICATION_BACKENDS = (
     'accounts.models.SocialAuthModelBackend',
+
     'django.contrib.auth.backends.ModelBackend',
 )
-
 #LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
+
+
+
