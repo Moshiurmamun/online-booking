@@ -8,10 +8,10 @@ from booking.models import Booking
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from hotels.forms import HotelsAddForm
 
-""""
+
 def userdash(request):
     return render(request, 'hotels/userdash.html')
-"""
+
 
 # ============================= Place List like dhaka, coxsbazar etc....
 def place_list(request):
