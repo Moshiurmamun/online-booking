@@ -22,6 +22,8 @@ urlpatterns = [
     re_path('mydashboard/view-room/', views.view_all_rooms, name="view_all_rooms"),
     re_path('mydashboard/edit-property/(?P<hotel_id>[0-9]+)/$', views.edit_property, name="edit_property"),
     re_path('mydashboard/edit-room/(?P<room_id>[0-9]+)/$', views.edit_room, name="edit_room"),
+
+    path('mydashboard/booking-details/', views.booking_details, name="booking_details"),
     # ===================================================
     # =================Facebook Login ===================
     path('api/auth/facebook/<str:uid>/', views.SocialSigninApi.as_view(), name='fb_auth_api'),

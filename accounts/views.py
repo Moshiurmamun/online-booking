@@ -233,7 +233,6 @@ def edit_property(request, hotel_id):
 
 
 
-
 # ==================================== View All Room =========================== #
 def view_all_rooms(request):
     user = UserProfile.objects.get(email=request.user)
@@ -280,6 +279,24 @@ def edit_room(request, room_id):
     }
 
     return render(request, 'accounts/edit_room.html', context)
+
+
+
+
+# ============================== Booking Details =================================
+def booking_details(request):
+    user = UserProfile.objects.get(email=request.user)
+    hotel = Hotels.objects.get(user=user)
+
+    booking_list = Booking.objects.filter(hotel=hotel)
+
+    context = {
+        'booking_list': booking_list,
+    }
+    return render(request, 'accounts/booking_details.html', context)
+
+
+
 
 
 
