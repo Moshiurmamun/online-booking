@@ -18,10 +18,8 @@ class Booking(models.Model):
     checkin = models.DateField()
     checkout = models.DateField()
     totalcost = models.IntegerField(default=0)
-
     def __str__(self):
-        return self.invoice
-
+        return str(self.user)
 
 # def pre_save_create_booking_id(sender, instance, *args, **kwargs):
 #     if not instance.booking_id:
