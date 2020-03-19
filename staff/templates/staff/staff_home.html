@@ -103,7 +103,8 @@
                 <div class="col-md-3">
                     <div class="w3-card" style="padding:25px; border-radius:10px">
                         <div class="card-body">
-                          <h4 class="card-title">Total Booking</h4>
+                          <h4 class="card-title">Total Booking ({{ booking_list.count }})</h4>
+
                           <p class="card-text"></p>
 
                         </div>
@@ -126,8 +127,11 @@
 
         <div class="col-md-12 col-sm-12">
             <div class="row">
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-6 col-sm-6 col-md-offset-3">
                     <h3>Apply request</h3>
+                    {% for book in booking_list %}
+                    <p>{{ book.user }}</p>
+                    {% endfor %}
 
                 </div>
 
