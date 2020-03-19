@@ -2,15 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from booking.models import Booking
 from hotels.models import Hotels, Places, Room
 from hotels.forms import PlacesForm, HotelsAddFormAdmin, RoomAddForm
-
+from booking.models import Booking
 
 ### Home view for staff
 def staff_home(request):
     if request.user.is_superuser:
         booking_list = Booking.objects.all()
 
+
         context = {
             'booking_list': booking_list,
+
         }
 
         return render(request, 'staff/staff_home.html', context)
@@ -18,6 +20,8 @@ def staff_home(request):
 
 ### View Booking
 def view_booking(request):
+    #if request.user.is_superuser:
+
 
     return render(request, 'staff/view_booking.html')
 
