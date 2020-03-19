@@ -8,7 +8,7 @@
 <br>
 <div class="container">
     <div class="row">
-        <div class="col-lg-3">
+        <div class="col-lg-2">
             <div class="row w3-card-1" style="padding:20px;border: 1px solid #ddd; border-radius:8px; height:600px">
                 <div class="col-lg-12">
                     <h5>{{ user.firstname }} {{ user.lastname }}</h5>
@@ -29,7 +29,7 @@
                     <br>
                     <br>
 
-                    <a>Bookings</a>
+                    <a href="{% url 'accounts:booking_details' %}">Booking Details</a>
 
                 </div>
                 <div>
@@ -45,7 +45,7 @@
 
 
 
-        <div class="col-lg-8 col-lg-offset-1">
+        <div class="col-lg-9 col-lg-offset-1">
             <h5>Hello {{user.firstname}}, it's nice to see you</h5>
             <br>
             <br>
