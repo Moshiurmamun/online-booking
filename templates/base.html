@@ -71,6 +71,7 @@
                 </li>
 
                 {% else %}
+                <li><a href="{% url 'booking:viewbookings' %}">My Booking</a></li>
                 <li><a href="{% url 'accounts:profile' profile_id=user.id %}">My dashboard</a></li>
                 <li><a href="{% url 'accounts:create_property' user_id=user.id %}">List your property</a></li>
 
