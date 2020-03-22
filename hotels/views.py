@@ -123,7 +123,16 @@ def room_list(request, slug):
 
     total_room=[]
     for r in rooms:
-        data = [r.id,r.quantity]
+        booked_room = Booking.objects.filter(room=r)
+        sum=0
+        for rb in booked_room:
+            sum+=int(rb.room_booked)
+        if sum==r.quantity:
+            q=0
+        else:
+            q=r.quantity-sum
+
+        data = [r.id,q]
         total_room.append(data)
 
 
