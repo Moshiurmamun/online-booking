@@ -75,10 +75,10 @@ def edit_places(request, id):
 
 
 ### Hotels View
-def hotels(request):
+def hotels(request, p_id):
     if request.user.is_superuser:
-        places_list = Places.objects.all()
-        hotels_list = Hotels.objects.all()
+        instance = Places.objects.get(id=p_id)
+        hotels_list = Hotels.objects.all().filter(places=instance)
 
         context  = {
             'places':places_list,
@@ -130,16 +130,14 @@ def edit_hotel(request, id):
 
 
 ### Room View
-def rooms(request):
+def rooms(request, h_id):
     if request.user.is_superuser:
-        places_list = Places.objects.all()
-        hotels_list = Hotels.objects.all()
-        rooms_list = Room.objects.all()
+        thehotel = Hotels.objects.get(id=h_id)
+        rooms = Room.objects.filter(hotel=thehotel)
 
         context = {
-            'places': places_list,
-            'hotels': hotels_list,
-            'rooms': rooms_list,
+            'hotels': thehotel,
+            'rooms': rooms,
         }
 
         return render(request, 'staff/rooms.html', context)
@@ -157,7 +155,7 @@ def add_room(request, id):
                 instance = form.save(commit=False)
                 instance.hotel = hotel
                 instance.save()
-                return redirect('staff:rooms')
+                return redirect('staff:staff_home')
         else:
             form = RoomAddForm()
 
@@ -176,7 +174,7 @@ def edit_room(request, id):
         form = RoomAddForm(request.POST or None, request.FILES or None, instance=instance)
         if form.is_valid():
             form.save()
-            return redirect('staff:rooms')
+            return redirect('/')
 
         context = {
             'form': form,

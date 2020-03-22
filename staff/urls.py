@@ -17,11 +17,11 @@ urlpatterns = [
     path('add-places/', login_required(views.add_places), name="add_places"),
 
     #Hotels list add and delete
-    path('hotels/', login_required(views.hotels), name="hotels"),
+    re_path('hotels/(?P<p_id>\d+)/$', login_required(views.hotels), name="hotels"),
 
 
     # Room List
-    path('rooms/', login_required(views.rooms), name="rooms"),
+    re_path('rooms/(?P<h_id>\d+)/$', login_required(views.rooms), name="rooms"),
 
 
 
