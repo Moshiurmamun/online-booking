@@ -2,24 +2,27 @@
 {% load static %}
 
 {% block content %}
-
-<div class="container">
-    <div class="row" style="margin-top:50px">
+<br>
+<div class="container fluid mt-5 ">
+    <div class="row">
         <div class="col-lg-12">
             <h3>Review & Confirm Your Booking</h3>
 
         </div>
 
+
         <div class="col-lg-12">
             <div class="row">
 
-            {% if theroom.image %}
-                <div class="col-lg-4">
-                    <img src="{{ theroom.image.url }}" class="img-responsive">
+
+                <div class="col-lg-5">
+                    {% if theroom.image %}
+                    <img src="{{ theroom.image.url }}" class="img-responsive" style="height:320px; width:400px">
                     <h5>{{ theroom.name }}</h5>
+                    {% endif %}
                 </div>
-            {% endif %}
-                <div class="col-lg-4">
+
+                <div class="col-lg-6 col-lg-offset-2">
                     <h4><b>{{ hotel.name }}</b></h4>
                     <p>{{ hotel.address }}</p>
                     <p>Room Capacity: {{ theroom.capacity }}</p>
@@ -34,7 +37,7 @@
                     <p>Total cost: {{ totalcost }}</p>
 
 
-                    <form method="POST" action="{% url 'booking:newbooking' theroom.id hotel.id checkin checkout  totalcost %}">
+                    <form method="POST" action="{% url 'booking:newbooking' theroom.id hotel.id checkin checkout r totalcost %}">
                         {% csrf_token %}
                         <button type="submit" class="btn btn-success">Book Now</button>
                     </form>
@@ -69,6 +72,7 @@
 
     </div>
 
+</div>
 </div>
 
 {% endblock content %}
