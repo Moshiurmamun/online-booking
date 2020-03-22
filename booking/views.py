@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django import forms
 from . import models
 from hotels.models import Hotels, Room
-from .models import Booking
+from .models import Booking, Notification
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 
@@ -31,7 +31,8 @@ def bookroom(request, hotelid, roomid):
     hotel = Hotels.objects.get(id=hotelid)
     theroom = Room.objects.get(id=roomid)
     price = theroom.price
-# ========================== selected number of rooms =====================
+
+    # ========================== selected number of rooms =====================
     if request.method=="POST":
         room_no=request.POST.get(roomid)
 
@@ -59,7 +60,7 @@ def generate_random():
     uuid = os.urandom(7).hex()
     return uuid
 
-def storeBooking(request, hotelid,checkin, checkout, roomid, totalcost):
+def storeBooking(request, hotelid,checkin, checkout, roomid, totalcost,room_no ):
 
     if request.method == 'POST':
         user = request.user
@@ -76,7 +77,15 @@ def storeBooking(request, hotelid,checkin, checkout, roomid, totalcost):
         newbooking.checkout = checkout
 
         newbooking.totalcost = cost
+        newbooking.room_booked=room_no
         newbooking.save()
+
+
+        recv = hotel.user
+
+        message = 'New request for '+str(room)+'.'
+        Notification.objects.create(receiver=recv, message=message)
+
 
         # delete the session variables
         del request.session['checkin']
@@ -120,3 +129,38 @@ def cancelbooking(request, id):
     booking.delete()
     link = reverse('booking:viewbookings')
     return HttpResponseRedirect(link)
+
+
+
+
+# ========================== Agent Notifications =========================
+def notifications(request, p_id):
+    notifications = Notification.objects.filter(receiver=request.user).order_by('-created')
+    unread_notification = Notification.objects.filter(receiver=request.user, is_read=False).count()
+
+    context = {
+        'notifications': notifications,
+        'count': unread_notification,
+    }
+    return render(request, 'booking/notifications.html', context)
+
+
+
+
+def markAsRead(request):
+    if request.user.is_authenticated:
+        if request.GET.get('notification_id'):
+            notification_id = request.GET.get('notification_id')
+            notification_obj = Notification.objects.get(id=notification_id)
+
+            if notification_obj in Notification.objects.all():
+                notification_obj.is_read = True
+                notification_obj.save()
+
+
+
+
+
+
+
+
