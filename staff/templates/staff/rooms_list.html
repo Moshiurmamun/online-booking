@@ -1,27 +1,8 @@
-<div  class="table-responsive">
+<br>
 <table class="table">
 
-{% for place in places %}
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col"><a style="color:red">Place: {{ place.name }}</a></th>
-        </tr>
-        <tr>
-            <th scope="col"><a href="{% url 'staff:addhotel' place_id=place.id %}" class="btn btn-primary">Add Hotel</a></th>
-        </tr>
-    </thead>
 
-    <tbody>
-        {% for hotel in hotels %}
-            <tr>
-                    <th scope="row">{{ hotel.name }}</th>
-                    <td>
-                        <a href="{% url 'staff:add_room' id=hotel.id %}">Add room</a>
-                    </td>
 
-            </tr>
-
-            <tr>
                 <th scope="row">
                     {% for room in rooms %}
                     <tr>
@@ -30,22 +11,13 @@
                         </th>
 
                         <td>
-                            <a href="{% url 'staff:edit_room' id=room.id %}">Edit Room</a>
+                            <a href="{% url 'staff:edit_room' id=room.id %}" class="btn btn-primary">Edit Room</a>
                         </td>
                     </tr>
                     {% endfor %}
 
 
-                    </th>
-                </tr>
-
-
-        {% endfor %}
-
-    </tbody>
-
-    {% endfor %}
+                </th>
 
 
 </table>
-</div>

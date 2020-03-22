@@ -1,3 +1,4 @@
+<br>
 <table class="table">
     <tbody>
 
@@ -10,7 +11,10 @@
 
         </td>
         <td>
-            <a href="{% url 'staff:edit_places' id=place.id %}" class="btn">Edit</a>
+            <a href="{% url 'staff:edit_places' id=place.id %}" class="btn btn-primary">Edit</a>
+        </td>
+        <td>
+            <a href="{% url 'staff:hotels' p_id=place.id %}" class="btn btn-primary">View All Hotels</a>
         </td>
     </tr>
 

@@ -1,32 +1,25 @@
-<div class="w3-card-1" style="padding:15px; border: 1px solid #ddd; border-radius: 8px">
+<br>
+<div class="card" style="padding:15px; border: 1px solid #ddd; border-radius: 8px">
     <div class="card-body ">
         <div class="table-wrap">
             <div class="table-responsive">
                 <table class="table">
 
-                        <thead>
-                        {% for place in places  %}
-                            <tr>
-                                <th class="">
-                                    <a href="{% url 'hotels:hotel_list' slug=place.slug %}">{{ place.name }}</a>
-                                    <a href="{% url 'staff:addhotel' place_id=place.id %}" class="btn btn-primary">Add Hotel</a>
-                                </th>
-                            </tr>
-                            {% endfor %}
-                        </thead>
-
-
 
                     <tbody>
                         {% for hotel in hotels %}
                         <tr>
-                            <th scope="row">{{ hotel.name }}</th>
-                            <td>
-                                <a href="{% url 'staff:add_room' id=hotel.id %}">Add Room</a>
+                            <th scope="row"><a href="{% url 'hotels:room_list' slug=hotel.slug %}">{{ hotel.name }}</a></th>
+                             <td>
+                                <a href="{% url 'staff:edit_hotel' id=hotel.id %}" class="btn btn-primary">Edit Hotel</a>
                             </td>
                             <td>
-                                <a href="{% url 'staff:edit_hotel' id=hotel.id %}">Edit Hotel</a>
+                                <a href="{% url 'staff:rooms' h_id=hotel.id %}" class="btn btn-primary">View All Room</a>
                             </td>
+                            <td>
+                                <a href="{% url 'staff:add_room' id=hotel.id %}" class="btn btn-primary">Add Room</a>
+                            </td>
+
                         </tr>
 
                         {% endfor %}
