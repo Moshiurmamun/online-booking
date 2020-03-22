@@ -21,7 +21,7 @@ def place_list(request):
     Searchterm = request.POST.get("searchterm")
 
     if not Searchterm:
-        hotels_list = Hotels.objects.all()
+        hotels_list = Hotels.objects.active()
     elif Searchterm:
         hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm) | Q(description__icontains=Searchterm))
 
@@ -63,7 +63,7 @@ def hotels_list(request, slug):
     Searchterm = request.POST.get("searchterm")
 
     if not Searchterm:
-        hotels_list = Hotels.objects.all()
+        hotels_list = Hotels.objects.active()
     elif Searchterm:
         hotels_list = Hotels.objects.filter(Q(city__icontains=Searchterm) | Q(address__icontains=Searchterm) | Q(name__icontains=Searchterm) | Q(description__icontains=Searchterm))
 
@@ -123,9 +123,11 @@ def room_list(request, slug):
 
     total_room=[]
     for r in rooms:
-        booked_room = Booking.objects.filter(room=r)
+        booked_room = Booking.objects.filter(Q(room=room)&Q(checkin__lte = SecDate)&Q(checkout__gte = FirstDate))
+        print(booked_room)
         sum=0
         for rb in booked_room:
+            # if FirstDate >= rb.checkin
             sum+=int(rb.room_booked)
         if sum==r.quantity:
             q=0
