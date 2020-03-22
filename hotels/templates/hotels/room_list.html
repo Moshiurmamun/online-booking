@@ -3,17 +3,18 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
+<br>
 
-    <div class="container">
+    <div class="container fluid mt-5 ">
 
         <div class="row" >
-                            <div class="col-lg-12" style="margin-top:80px">
-                                <div class="w3-card-2" style="border: 1px solid #ddd; border-radius:8px">
+                            <div class="col-lg-12" >
+                                <div class="card" style="border: 1px solid #ddd; border-radius:8px; padding:20px">
                                 <div class="row">
                                     <div class="col-lg-7">
 
                                         {% if hotel.image %}
-                                            <img src="{{ hotel.image.url }}" class="img-responsive" style="padding:20px;border-radius: 25px;height:450px; width:100%">
+                                            <img src="{{ hotel.image.url }}" class="img-responsive" style="border-radius: 25px;height:440px; width:100%">
                                         {% endif %}
                                     </div>
                                     <div class="col-lg-5">
@@ -36,10 +37,10 @@
        <!-- =================Room List==================== -->
         <div class="row">
             <div class="col-lg-12">
-            <div class="w3-card-1" style="border: 1px solid #ddd; border-radius:8px">
+            <div class="card" style="border: 1px solid #ddd; border-radius:8px">
                 {% for room in rooms %}
                 <br>
-                <div class="w3-card-1"  style="border: 1px solid #ddd; border-radius:8px">
+                <div class="card"  style="border: 1px solid #ddd; border-radius:8px; padding:10px">
                     <div class="row">
                         <div class="col-lg-4">
                             {% if room.image %}
@@ -61,9 +62,8 @@
                             <p>Price Per Night <b>BDT {{ room.price }}</b></p>
                             <p>Save {{ room.discount }}%</p>
                             <p>Service Charge {{ room.service_charge }}%</p>
-                            <p>Number of Rooms {{ room.quantity }}</p>
+                            <p id="room_booked{{room.id}}"></p>
 
-                            <p>Room left :{{ room.spaceleft }}</p>
                             <form action="{% url 'booking:bookroom' hotel.id room.id %}" method="POST">
                                 {% csrf_token %}
                                 <select id="room{{room.id}}" name="{{room.id}}">
@@ -86,14 +86,20 @@
     function roomOption(){
         var totalroom = {{total_room}};
         for(let index in totalroom){
+            roomQuantity = "room_booked"+totalroom[index][0];
+            console.log()
+            roomQselect = document.getElementById(roomQuantity);
+            roomQselect.innerHTML = "Number of rooms: "+ totalroom[index][1];
+
             roomId = "room"+totalroom[index][0];
             console.log(totalroom[index][1]);
             roomSelect = document.getElementById(roomId);
             option = [];
+            span=[];
             for(i=1;i<=Number(totalroom[index][1]);i++){
                 option+=`<option value="${i}">${i}</option>`;
+
             }
-            console.log(option)
             roomSelect.innerHTML=option;
         }
     }

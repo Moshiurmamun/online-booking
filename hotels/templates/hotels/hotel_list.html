@@ -6,15 +6,38 @@
 
 {% block content %}
 
-<div class="container">
+
+
+<div class="container fluid mt-5 ">
     <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+
+            <form method="POST" enctype="multipart/form-data" name="search" onsubmit="return validateForm()">
+                {% csrf_token %}
+
+                <div class="form-group">
+                    <input class="form-control text-capitalize" type="text" name="searchterm" id="checkin" placeholder="where are you going?" required>
+
+                </div>
+
+                <!-- Multi Date, Date Picker -->
+                <div class="form-group">
+                    <input class="date form-control" type="text" name="daterange" id="checkin" placeholder="Select Date" required>
 
 
+                </div>
 
-                    <div class="col-lg-12" style="margin-top:60px">
+                <button type="submit" class="btn btn-primary">Search</button>
 
-                        {% include 'hotels/search.html' %}
 
+            </form>
+
+        </div>
+
+    </div>
+    <br>
+
+    <div class="row">
 
 
                         <!-- ========= Left ============== -->
@@ -30,16 +53,16 @@
 
 
              {% for hotel in object_list %}
-                            <div class="w3-card-1" style="border: 1px solid #ddd; border-radius:8px">
+                            <div class="card" style="border: 1px solid #ddd; border-radius:8px; padding: 20px">
                                 <div class="row">
                                     <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
                         {% if hotel.image %}
-                                        <a href="{{ hotel.get_absolute_url }}"><img src="{{ hotel.image.url }}" class="img-responsive" style="border-radius: 5px;;height:250px; width:300px"></a>
+                                        <a href="{{ hotel.get_absolute_url }}"><img src="{{ hotel.image.url }}" class="img-responsive" style="border-radius: 5px;;height:230px; width:245px"></a>
 
                                             {% endif %}
                                     </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                                            <h3><b><a href="{{ hotel.get_absolute_url }}" style="color:#003d99;text-decoration:none">{{ hotel.name }}</a></b></h3>
+                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12 ">
+                                            <h4><b><a href="{{ hotel.get_absolute_url }}" style="color:#003d99;text-decoration:none">{{ hotel.name }}</a></b></h4>
                                             <p>{{ hotel.rating }}</p>
                                             <p>{{ hotel.address }}</p>
                                         </div>
@@ -55,36 +78,21 @@
 
     <!-- ==================== Pagination =================== -->
     {% if object_list.has_other_pages %}
+ <nav aria-label="Page navigation example mt-5">
     <ul class="pagination">
-          <li class="page-item">    <!-- Jump to First Page -->
-            {% if object_list.number != 1 %}
-               <li class="previous">
-                  <a href="?page=1">
-                    <span aria-hidden="true">&laquo;</span></a>
-            {% else %}
-                <li class="previous disabled">
-                <a><span aria-hidden="true">&laquo;</span></a>
-            {% endif %}
-          </li>
-          <li class="page-item">  <!-- Jump to Prvious Page -->
+
             {% if object_list.has_previous %}
-               <li class="previous"> <a href="?page={{ object_list.previous_page_number }}
-               {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}">
-               <span aria-hidden="true">‹</span></a>
+              <li class="page-item"><a href="?page=1" class="page-link"><i class="fas fa-angle-double-left"></i></a></li>
+
+               <li class="page-item"> <a href="?page={{ object_list.previous_page_number }}
+               {% if request.GET.q %}&q={{ request.GET.q }}{% endif %}"><i class="fas fa-angle-left"></i></a></li>
             {% else %}
-                <li class="previous disabled"><a>‹</a>
+        <li class="page-item disabled"><span class="page-link"><i class="fas fa-angle-left"></i></span></li>
             {% endif %}
-          </li>
-          {% if object_list.has_previous %}
-          <li class="page-item">  <!-- Show Previous 4 page numbers -->
-              <li class="previous"> <a class = "skip_prev" href = "">...</a></li>
-          {% else %}
-                <li class="next disabled"><a>...</a>
-          {% endif %}
-          </li>
-          {% for i in "12345" %}
-        <!-- Change the range ("12345") according to your choice to show numbers -->
-            <li class="pg" data = {{i}}><a class = "page_number" href=""></a>
+
+          {% for i in object_list.paginator.page_range %}
+
+
           {% endfor %}
 
           {% if object_list.has_next %}
@@ -111,6 +119,7 @@
             {% endif %}
           </li>
         </ul>
+ </nav>
     {% endif %} <!-- Pagination end -->
 
 
@@ -123,4 +132,4 @@
 
 
 
-{% endblock %}
+{% endblock content %}

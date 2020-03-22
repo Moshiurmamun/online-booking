@@ -16,16 +16,40 @@
 </section>
 
 =============================================     -->
- <br>
- <br>
- <br>
 
 <section>
-    {% include 'hotels/search.html' %}
+    <div class="container fluid mt-5 ">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+
+                <form method="POST" enctype="multipart/form-data" name="search" onsubmit="return validateForm()">
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <input class="form-control text-capitalize" type="text" name="searchterm" id="checkin" placeholder="where are you going?" required>
+
+                    </div>
+
+                    <!-- Multi Date, Date Picker -->
+                    <div class="form-group">
+                        <input class="date form-control" type="text" name="daterange" id="checkin" placeholder="Select Date" required>
+
+
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Search</button>
+
+
+                </form>
+
+            </div>
+
+        </div>
+    </div>
 </section>
 
 
-
+<!--
 <section>
     <div class="container">
         <div class="row">
@@ -67,7 +91,7 @@
     </div>
 
 </section>
-
+-->
 
 
 
@@ -76,24 +100,25 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <h2 class="text-center text-uppercase text-muted">Popular Destinations</h2>
-                <br>
+                <h2 class="text-center text-uppercase text-muted ">Popular Destinations</h2>
+                <br><div class="row">
                  {% for place in places %}
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 col-lg-offset-1">
                             {% if place.image %}
 
 
-                                <a href="{{ place.get_absolute_url }}"><img src="{{ place.image.url }}" class="img-responsive" style="width: 600px; height: 300px"></a>
+                                <a href="{{ place.get_absolute_url }}"><img src="{{ place.image.url }}" class="img-responsive" style="width: 560px; height: 300px;"></a>
                                     <p style="position: absolute; top:50%;left:50%;font-size:25px ; color:White; font-weight:bold;transform: translate(-50%, -50%);">{{ place.name }}</p>
 
 
-
                             {% endif %}
+
                     </div>
 
 
 
-                 {% endfor %}</div>
+                 {% endfor %}</div> </div>
 
 
 
