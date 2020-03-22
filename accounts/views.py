@@ -9,7 +9,7 @@ from rest_framework import status
 
 
 from . import models
-
+from booking.models import Notification
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.contrib.auth import login, logout
@@ -173,10 +173,13 @@ def profile(request, profile_id):
     user = get_object_or_404(account_model.UserProfile, id=profile_id)
     #userprofile = account_model.UserProfile.objects.get(user = user)
     hotels = Hotels.objects.filter(user=user)
+    unread_notification = Notification.objects.filter(receiver = request.user, is_read=False).count()
+
 
     context = {
         'user': user,
         'hotels': hotels,
+        'count': unread_notification,
     }
     return render(request, 'accounts/profile.html', context)
 
