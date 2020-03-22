@@ -37,7 +37,8 @@
                                                             <th>Check Out</th>
                                                             <th>Status</th>
                                                             <th>Phone</th>
-                                                            <th>Room Type</th>
+                                                            <th>Room Name</th>
+                                                            <th>Room Booked</th>
                                                             <th>Edit</th>
 													    </tr>
 												    </thead>
@@ -52,7 +53,8 @@
                                                             <td>{{ book.checkout }}</td>
                                                             <td></td>
                                                             <td>{{ book.user.phone }}</td>
-                                                            <td>{{ book.room.roomtype }}</td>
+                                                            <td>{{ book.room.name }}</td>
+                                                            <td>{{ book.room_booked }}</td>
                                                         </tr>
                                                     {% endfor %}
 
