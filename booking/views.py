@@ -31,6 +31,10 @@ def bookroom(request, hotelid, roomid):
     hotel = Hotels.objects.get(id=hotelid)
     theroom = Room.objects.get(id=roomid)
     price = theroom.price
+    discount = theroom.discount
+    vat = theroom.vat
+    service_charge = theroom.service_charge
+
 
     # ========================== selected number of rooms =====================
     if request.method=="POST":
@@ -38,6 +42,9 @@ def bookroom(request, hotelid, roomid):
 
 
     totalcost = stayduration * price * float(room_no)
+
+
+
     totalcost = int(totalcost)
     context = {
 
@@ -53,7 +60,7 @@ def bookroom(request, hotelid, roomid):
     return render(request, 'booking/booking.html', context)
 
 
-
+# call jay na?
 # ============================ storeBooking ========================
 
 def generate_random():
