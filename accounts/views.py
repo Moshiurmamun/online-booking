@@ -291,7 +291,7 @@ def booking_details(request):
     user = UserProfile.objects.get(email=request.user)
     hotel = Hotels.objects.get(user=user)
 
-    booking_list = Booking.objects.filter(hotel=hotel)
+    booking_list = Booking.objects.filter(hotel=hotel).order_by("-creation_date")
 
     context = {
         'booking_list': booking_list,
