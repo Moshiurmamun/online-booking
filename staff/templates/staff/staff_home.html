@@ -5,51 +5,11 @@
 
 
 {% block stylesheet %}
-
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <style>
-.sidenav {
-  height: 100%;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  padding-top: 35px;
-}
-.sidenav a, .dropdown-btn{
-  padding: 6px 8px 6px 16px;
-  text-decoration: none;
-  font-size: 20px;
-  color: #818181;
-  display: block;
-  border: none;
-  background: none;
-  width: 100%;
-  text-align: left;
-  cursor: pointer;
-  outline: none;
+.ee {
+    color: #08a397;
 }
 
-.sidenav a:hover, .dropdown-btn:hover {
-  color: #f1f1f1;
-}
-.dropdown-container {
-  display: none;
-  background-color: #262626;
-  padding-left: 8px;
-}
-
-.fa-caret-down {
-  float: right;
-  padding-right: 8px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
 
 </style>
 
@@ -58,40 +18,28 @@
 
 
 {% block content %}
-<br>
-<br>
-<br>
-
-    <div class="row">
-        <div class="col-md-2">
-            <div class="sidenav">
-                <a>{{ user.email }}</a>
-                <br>
-                <a>Profile</a>
-                <a>Dashboard</a>
-                <button class="dropdown-btn">Booking
-                    <i class="fa fa-caret-down"></i>
-                </button>
-                <div class="dropdown-container">
-                    <a href="{% url 'staff:view_booking' %}">View Booking</a>
-                    <a href="{% url 'staff:staff_home' %}">Booking Request</a>
-                    <a href="#">Link 3</a>
-                </div>
-
-                <a href="{% url 'staff:places_list' %}">Places</a>
-                <a href="{% url 'staff:hotels' %}">Hotels</a>
-                <a href="{% url 'staff:rooms' %}">Rooms</a>
-                <a>Staff</a>
-            </div>
-        </div>
+<div class="container-fluid mt-5 ">
+		<div class="row">
+			<div class="col-md-3 mr-5 col-sm-12 ee p-4">
+				<nav class="nav flex-column">
+                  <a class="nav-link text-white pt-3">{{ user.email }}</a>
+				  <a class="nav-link text-white border p-3" href="{% url 'staff:staff_home' %}">Booking Request</a>
+				  <a class="nav-link text-white pt-3" href="{% url 'staff:view_booking' %}">View Booking</a>
+				  <a class="nav-link text-white pt-3" href="{% url 'staff:places_list' %}">Places</a>
+				  <a class="nav-link text-white pt-3" href="{% url 'staff:hotels' %}">Hotels</a>
+				  <a class="nav-link text-white pt-3" href="{% url 'staff:rooms' %}">Rooms</a>
+				</nav>
+			</div>
 
 
-        <div class="col-md-10">
-            <h2>Dashboard</h2>
-            <br>
-            <div class="row">
-                <div class="col-md-3">
-                    <div class="w3-card" style="padding:25px; border-radius:10px">
+
+
+            <div class="col-md-7 col-sm-12 mt-5">
+                <h2>Dashboard</h2>
+
+                <div class="row">
+                <div class="col-md-4">
+                    <div class="card" style="padding:25px; border-radius:10px">
                         <div class="card-body">
                           <h4 class="card-title">Orders</h4>
                           <p class="card-text"></p>
@@ -100,8 +48,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="w3-card" style="padding:25px; border-radius:10px">
+                <div class="col-md-4">
+                    <div class="card" style="padding:25px; border-radius:10px">
                         <div class="card-body">
                           <h4 class="card-title">Total Booking ({{ booking_list.count }})</h4>
 
@@ -111,8 +59,8 @@
                     </div>
                 </div>
 
-                <div class="col-md-3">
-                    <div class="w3-card" style="padding:25px; border-radius:10px">
+                <div class="col-md-4">
+                    <div class="card" style="padding:25px; border-radius:10px">
                         <div class="card-body">
                           <h4 class="card-title">Earning</h4>
                           <p class="card-text"></p>
@@ -121,11 +69,10 @@
                     </div>
                 </div>
 
-            </div>
-        </div>
 
 
-        <div class="col-md-12 col-sm-12">
+
+        <div class="col-md-8 col-sm-12">
             <div class="row">
                 <div class="col-md-6 col-sm-6 col-md-offset-3">
                     <h3>Apply request</h3>
@@ -137,10 +84,13 @@
 
             </div>
         </div>
+                </div>
 
 
     </div>
 
+        </div>
+</div>
 
 <script>
 /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
