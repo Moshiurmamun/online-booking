@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
 
 {% block title %} Dear Life Bd - Add hotels {% endblock %}
 
-
+{% block stylesheet %}
+<style>
+    body{
+    background-color: #f7f7f7
+    }
+</style>
+{% endblock %}
 
 {% block content %}
 <br>
@@ -14,19 +19,109 @@
 
 <div class="container">
 
-<div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <h3>Add Hotel</h3>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form|crispy  }}
+    <div class="row">
+        <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+               <h3 >Welcome {{ user.firstname }} {{ user.lastname }}</h3>
+                <p>Start telling us property's name, contact details, address etc.</p>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.media  }}
+        <div class="card" style="padding:20px; border:2px solid #08a397">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="md-form mt-2">
+                        <h5>What's the name of your property?</h5>
+                        {{ form.name }}
+                        <label for="id_name"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form">
+                        <p>Region </p>
+                        {{ form.places }}
+                        <label for="id_places"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form ">
+                        <h5>Select your property image</h5>
+                        {{ form.image }}
+                        <label for="id_image"></label>
+                    </div>
+                </div>
+            </div>
+        </div><!-- End 1st Card -->
         <br>
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
+        <div class="card" style="padding:20px; border:2px solid #08a397">
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="md-form mr-3">
+                        <h5>Where's your property located?</h5>
+                        {{ form.address }}
+                        <label for="id_address"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="md-form mr-3">
+                        {{ form.city }}
+                        <label for="id_city"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-6">
+                    <div class="md-form ">
+                        {{ form.telephone }}
+                        <label for="id_telephone"></label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col">
+                    <div class="md-form ">
+                        <span style="color:#757575">About Hotel</span>
+                        {{ form.description }}
+                        <label for="id_description"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4">
+                    <div class="md-form ">
+                        <span style="color:#757575">Hotel Rating</span>
+                        {{ form.rating }}
+                        <label for="id_rating"></label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-md-4">
+                    <div class="md-form ">
+                        <span style="color:#757575">Draft</span>
+                        {{ form.draft }}
+                        <label for="id_draft"></label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+            <br>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+        </div>
     </div>
 </div>
-</div>
-
 
 
 {% endblock content %}

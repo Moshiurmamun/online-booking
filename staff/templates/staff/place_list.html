@@ -16,6 +16,10 @@
         <td>
             <a href="{% url 'staff:hotels' p_id=place.id %}" class="btn btn-primary">View All Hotels</a>
         </td>
+
+        <td>
+            <a href="{% url 'staff:addhotel' place_id=place.id %}" class="btn btn-primary">Add Hotels</a>
+        </td>
     </tr>
 
         {% endfor %}
