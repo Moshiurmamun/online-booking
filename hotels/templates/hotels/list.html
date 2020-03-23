@@ -7,39 +7,42 @@
 <!-- ============================= Home page background image ========================
 <section>
             <div class="background-image img-responsive" >
-
-
-
-
             </div>
     <br>
 </section>
-
 =============================================     -->
-
+<br>
 <section>
     <div class="container fluid mt-5 ">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-12 ">
 
-                <form method="POST" enctype="multipart/form-data" name="search" onsubmit="return validateForm()">
+                <form  method="POST" enctype="multipart/form-data" name="search" onsubmit="return validateForm()">
+                    <div class="form-row align-items-center">
                     {% csrf_token %}
+                        <div class="col-md-4 my-1">
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">@</div>
+                                    <input class="form-control text-capitalize" type="text" name="searchterm" id="checkin" placeholder="where are you going?" required>
+                                </div>
+                            </div>
+                        </div>
 
-                    <div class="form-group">
-                        <input class="form-control text-capitalize" type="text" name="searchterm" id="checkin" placeholder="where are you going?" required>
+                        <!-- Multi Date, Date Picker -->
+                        <div class="col-md-4 my-1">
+
+                            <div class="input-group mb-2 mr-sm-2mb-sm-0">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">@</div>
+                                    <input class="date form-control" type="text" name="daterange" id="checkin" placeholder="Select Date" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">Search</button>
 
                     </div>
-
-                    <!-- Multi Date, Date Picker -->
-                    <div class="form-group">
-                        <input class="date form-control" type="text" name="daterange" id="checkin" placeholder="Select Date" required>
-
-
-                    </div>
-
-                    <button type="submit" class="btn btn-primary">Search</button>
-
-
                 </form>
 
             </div>
@@ -61,7 +64,6 @@
                 <div class="col-md-8 col-md-offset-2">
                     <img class="mySlides" src="{% static 'image/s1.jpg' %}" style="width:100%; height:350px">
                     <img class="mySlides" src="{% static 'image/s2.jpg' %}" style="width:100%;height:350px">
-
                     <button class="w3-button w3-black w3-display-left" onclick="plusDivs(-1)">&#10094;</button>
                     <button class="w3-button w3-black w3-display-right" onclick="plusDivs(1)">&#10095;</button>
                 <br>
@@ -69,11 +71,9 @@
         <script>
             var slideIndex = 1;
             showDivs(slideIndex);
-
             function plusDivs(n) {
               showDivs(slideIndex += n);
             }
-
             function showDivs(n) {
               var i;
               var x = document.getElementsByClassName("mySlides");
@@ -85,11 +85,9 @@
               x[slideIndex-1].style.display = "block";
             }
         </script>
-
             </div>
         </div>
     </div>
-
 </section>
 -->
 
@@ -181,9 +179,6 @@ function validateForm() {
     return false;
   }
 }
-
-
-
 
 </script>
 {% endblock %}
