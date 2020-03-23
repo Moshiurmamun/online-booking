@@ -293,8 +293,11 @@ def booking_details(request):
 
     booking_list = Booking.objects.filter(hotel=hotel).order_by("-creation_date")
 
+    unread_notification = Notification.objects.filter(receiver = request.user, is_read=False).count()
+
     context = {
         'booking_list': booking_list,
+        'count': unread_notification,
     }
     return render(request, 'accounts/booking_details.html', context)
 

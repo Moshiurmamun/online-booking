@@ -7,12 +7,12 @@ from . import models
 
 
 class UserRegistrationForm(forms.Form):
-    firstname = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'First name'}))
-    lastname = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Last name'}))
-    email = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'youremail@something.com'}))
-    phone = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': '01974265888'}))
-    password1 = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Password',}))
-    password2 = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Retype', }))
+    firstname = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'First name', 'class':'form-control'}))
+    lastname = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Last name', 'class':'form-control'}))
+    email = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'youremail@something.com', 'class':'form-control'}))
+    phone = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': '01974265888', 'class':'form-control'}))
+    password1 = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class':'form-control'}))
+    password2 = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Retype', 'class':'form-control'}))
 
 
 
@@ -62,8 +62,8 @@ class UserRegistrationForm(forms.Form):
 
 #login
 class Login(forms.Form):
-    email = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'youremail@something.com'}))
-    password = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Password',}))
+    email = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'youremail@something.com',  'class':'form-control'}))
+    password = forms.CharField(max_length=20, required=False, widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class':'form-control'}))
 
 
     def clean(self):
