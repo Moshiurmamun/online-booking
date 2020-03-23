@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<div class="container fluid mt-5 ">
+    <div class="row">
+
+        <div class="col-lg-3">
+                <div class="card" style="padding:20px;border: 1px solid #ddd; border-radius:8px; height:400px">
+
+
+                        <h5>{{ user.firstname }} {{ user.lastname }}</h5>
+
+
+
+                        {% if user.image %}
+                        <img src="{{ user.image.url }}" class="rounded-circle" style="height:190px;width:200px">
+                        {% endif %}
+
+
+                        <br>
+                        <a href="{% url 'accounts:change-basic-info' %}">Edit Your Profile</a>
+
+
+                </div>
+
+
+
+        </div> <!-- ======= End Left coloumn ======== -->
+
+
+        <!-- Start right column -->
+             <div class="col-lg-9">
+                 <div class="card" style="border: 1px solid #ddd; border-radius:8px; padding:20px">
+                     <div class="col-lg-12">
+
+                     {% for book in booking %}
+
+                       <a>{{ book.hotel.name }}</a>
+                        <p>Booking ID {{ book.invoice }}</p>
+                        <p>Check-In {{ book.checkin }}</p>
+                        <p>Check-Out {{ book.checkout }}</p>
+                        <p>Cost BDT{{ book.totalcost }}</p>
+                        <a  class="btn btn-sm btn-danger" href="{% url 'booking:cancelbooking' book.id %}">Cancel</a>
+                        <a  class="btn btn-sm btn-default " href="{% url 'booking:gpdf' book.id %}">Download PDF</a>
+
+
+                        <br>
+                        <br>
+                         <hr>
+                        {% endfor %}
+                    </div>
+                    </div>
+                </div>
+
+         </div>
+</div>
+
+{% endblock content %}
