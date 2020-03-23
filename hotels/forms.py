@@ -24,8 +24,8 @@ class BookingForm(forms.ModelForm):
 
 ###### Place Add Form
 class PlacesForm(forms.ModelForm):
-    name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Place Name'}))
-    country = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Country Name'}))
+    name = forms.CharField(max_length=255, widget=forms.TextInput(attrs={'placeholder': 'Place Name', 'class': 'form-control'}))
+    country = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Country Name', 'class': 'form-control'}))
 
 
     def clean(self):
@@ -51,11 +51,11 @@ class PlacesForm(forms.ModelForm):
 # ======================= Hotel Add Form ======================
 # Place choice field add kora hoy nai
 class HotelsAddForm(forms.ModelForm):
-    name = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'placeholder': 'Hotel Name'}))
-
-    address = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'placeholder': 'Address'}))
-    city = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'City'}))
-    telephone = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'placeholder': 'Mobile Number'}))
+    name = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'placeholder': 'Hotel Name','class': 'form-control'}))
+   # places = forms.ModelMultipleChoiceField(queryset = Places.objects.all(), widget=forms.CheckboxSelectMultiple())
+    address = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'placeholder': 'Address','class': 'form-control'}))
+    city = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'City', 'class': 'form-control'}))
+    telephone = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'placeholder': 'Mobile Number', 'class': 'form-control'}))
 
     def clean(self):
         name = self.cleaned_data.get('name')
@@ -141,11 +141,11 @@ class RoomAddForm(forms.ModelForm):
     name = forms.CharField(max_length=255, required=True, widget=forms.TextInput(attrs={'placeholder': 'Room name'}))
     roomtype = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Room type'}))
     capacity = forms.CharField(max_length=255, required=False, widget=forms.TextInput(attrs={'placeholder': 'Capacity'}))
-    price = forms.FloatField(required=False)
-    quantity = forms.IntegerField(required=False)
-    discount = forms.FloatField(required=False)
-    vat = forms.FloatField(required=False)
-    service_charge = forms.FloatField(required=False)
+    price = forms.FloatField( required=False, widget=forms.TextInput(attrs={'placeholder': 'Price'}))
+    quantity = forms.IntegerField( required=False, widget=forms.TextInput(attrs={'placeholder': 'Number of rooms'}))
+    discount = forms.FloatField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Discount'}))
+    vat = forms.FloatField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Vat'}))
+    service_charge = forms.FloatField(required=False, widget=forms.TextInput(attrs={'placeholder': 'Service Charge'}))
 
 
 
