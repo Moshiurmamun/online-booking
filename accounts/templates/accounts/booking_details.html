@@ -10,7 +10,7 @@
         <a class="nav-item nav-link" href="{% url 'accounts:profile' profile_id=user.id %}">My Dashboard</a>
       <a class="nav-item nav-link" href="{% url 'accounts:booking_details' %}">Bookings Details</a>
       <a class="nav-item nav-link" href="{% url 'accounts:create_property' user_id=user.id %}">List Your Property</a>
-      <a class="nav-item nav-link" href="">Notification</a>
+      <a class="nav-item nav-link" href="{% url 'accounts:notifications' p_id=user.id %}">Notification {{count}}</a>
     </div>
   </div>
   </div>

@@ -3,16 +3,14 @@
 
 {% block content %}
 <br>
-<br>
-<br>
-<div class="container">
+
+<div class="container fluid mt-5">
     <div class="row">
         <div class="col-lg-12">
 
-            <div class="w3-card-1" style="border: 1px solid #ddd; border-radius:8px">
+            <div class="card" style="border: 1px solid #ddd; border-radius:8px">
                 {% for room in rooms %}
-                <br>
-                <div class="w3-card-1"  style="border: 1px solid #ddd; border-radius:8px">
+                <div class="card"  style="border: 1px solid #ddd; border-radius:8px">
                     <div class="row">
                         <div class="col-lg-4">
                             {% if room.image %}
@@ -20,7 +18,7 @@
 
                                 <img src="{{ room.image.url }}" class="img-responsive" style="width:300px; height:200px">
 
-                        {% endif %}
+                            {% endif %}
                         </div>
 
 
@@ -43,16 +41,15 @@
                     </div>
 
                 </div>
-            <br>
+
             {% endfor %}
         </div>
 
 
-
-        </div>
         </div>
     </div>
 </div>
+
 
 
 

@@ -52,26 +52,26 @@
             <br>
             <br>
 
-            {% for hotel in hotels %}
+                {% for hotel in hotels %}
                             <div class="card" style="border: 1px solid #ddd; border-radius:8px">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12">
-                        {% if hotel.image %}
-                                        <a href="{{ hotel.get_absolute_url }}"><img src="{{ hotel.image.url }}" class="img-responsive" style="border-radius: 5px;;height:250px; width:300px"></a>
-
-                                            {% endif %}
+                                    <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
+                                    {% if hotel.image %}
+                                        <a href="{{ hotel.get_absolute_url }}"><img src="{{ hotel.image.url }}" style="border-radius: 5px;;height:250px; width:300px"></a>
+                                    {% endif %}
                                     </div>
-                                        <div class="col-lg-8 col-md-8 col-sm-6 col-xs-12">
-                                            <h3><b><a href="{{ hotel.get_absolute_url }}">{{ hotel.name }}</a></b></h3>
+                                        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                            <h4 class="mt-2"><b><a href="{{ hotel.get_absolute_url }}">{{ hotel.name }}</a></b></h4>
                                             <p>{{ hotel.rating }}</p>
                                             <p>{{ hotel.address }}</p>
                                             <br>
-                                    <br>
+                                            <br>
+                                            <a type="submit" class="btn btn-md btn-primary" href="{% url 'accounts:add_room'  %}">Add Room</a>
+                                            <a type="submit" class="btn btn-md btn-primary" href="{% url 'accounts:view_all_rooms'  %}">View All Room </a>
+                                            <a type="submit" class="btn btn-md btn-primary" href="{% url 'accounts:edit_property' hotel_id=hotel.id %}">Edit Hotel</a>
+
                                         </div>
 
-                                    <a type="submit" class="btn btn-primary" href="{% url 'accounts:add_room'  %}">Add Room</a>
-                                    <a type="submit" class="btn btn-primary" href="{% url 'accounts:view_all_rooms'  %}">View All Room </a>
-                                    <a type="submit" class="btn btn-primary" href="{% url 'accounts:edit_property' hotel_id=hotel.id %}">Edit Hotel</a>
 
                                 </div>
 
@@ -79,7 +79,7 @@
                             </div>
                             <br>
 
-            {% endfor %}
+                {% endfor %}
         </div>
     </div>
 </div>

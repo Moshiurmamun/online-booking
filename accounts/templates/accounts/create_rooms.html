@@ -1,11 +1,13 @@
 {% extends 'base.html' %}
 {% load static %}
-{% load crispy_forms_tags %}
-
 
 
 {% block stylesheet %}
-
+<style>
+    body{
+    background-color: #f7f7f7
+    }
+</style>
 {% endblock %}
 
 
@@ -17,12 +19,110 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-12">
-            <h3 class="text-center">Add Room</h3>
-            <div class="col-lg-6">
+
+            <div class="col-lg-9 col-md-9 col-sm-12 col-12">
+
+                <h4>Add Room details</h4>
                 <form method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ form|crispy }}
+                    {{ form.media }}
+                <div class="card" style="padding:20px; border:2px solid #08a397">
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="md-form mt-4">
+                                <h5>Please select</h5>
+                                {{ form.name }}
+                                <label for="id_name"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="md-form">
+                                <p>Select Hotel </p>
+                                {{ form.hotel }}
+                                <label for="id_hotel"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-6">
+                            <div class="md-form">
+                                {{ form.roomtype }}
+                                <label for="id_roomtype"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col">
+                            <div class="md-form mt-4">
+                                <p>Select Image</p>
+                                {{ form.image }}
+                                <label for="id_image"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="md-form mt-4">
+                                <p>Number of rooms (this type)</p>
+                                {{ form.quantity }}
+                                <label for="id_quantity"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="md-form mt-4">
+                                <p>How many guests can stay in this room?</p>
+                                {{ form.capacity }}
+                                <label for="id_capacity"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End 1st card -->
 
+    <!-- =========================== Start 2nd card =========================== -->
+                <div class="card" style="padding:20px; border:2px solid #08a397">
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="md-form mt-4">
+                                <h5>Pricing</h5>
+                                <br>
+                                <span>Price per night</span>
+                                {{ form.price }}
+                                <label for="id_price"></label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="md-form mt-4">
+                                {{ form.discount }}
+                                <label for="id_discount"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="md-form mt-4">
+                                {{ form.vat }}
+                                <label for="id_vat"></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="col-md-4">
+                            <div class="md-form mt-4">
+                                {{ form.service_charge }}
+                                <label for="id_service_charge"></label>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End 2nd card -->
+
+                <br>
                     <input type="submit" class="btn btn-success" value="Create Room">
                 </form>
             </div>
