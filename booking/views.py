@@ -166,8 +166,3 @@ def markAsRead(request):
 
 
 
-
-
-
-
-
