@@ -28,6 +28,7 @@ urlpatterns = [
     path('hotels/', include('hotels.urls')),
     path('booking/', include('booking.urls')),
     path('administration/', include('staff.urls')),
+    path('contact/', include('contact.urls')),
     path('', place_view.place_list, name="home"),
 ]
 
