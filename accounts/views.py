@@ -268,6 +268,7 @@ def add_room(request):
     return render(request, 'accounts/create_rooms.html', context)
 
 
+
 # ============================= Edit Room ==================================
 def edit_room(request, room_id):
 

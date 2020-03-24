@@ -2,7 +2,7 @@ from django.urls import path, re_path
 from . import views
 
 from booking.views import notifications
-
+from contact.views import messages
 
 app_name = 'accounts'
 
@@ -13,6 +13,8 @@ urlpatterns = [
     path('mydashboard/basic-info/', views.ChangeBasicInfo.as_view(), name='change-basic-info'),
     path('change/password/', views.ChangePassword.as_view(), name='change-password'),
 
+    # Message
+    re_path('messages/(?P<id>[0-9]+)/$', messages, name="messages"),
     #re_path('list-property/(?P<id>[0-9]+)/$', views.list_property, name="list_property"),
 
     # ==============================================================================
