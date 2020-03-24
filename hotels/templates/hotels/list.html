@@ -12,18 +12,28 @@
 </section>
 =============================================     -->
 <br>
+<br>
+<br>
+<br>
+<br>
 <section>
     <div class="container fluid mt-5 ">
         <div class="row">
             <div class="col-md-12 ">
+                {% if user.is_authenticated  %}
+                <h4>Welcome {% if user.firstname %} {{ user.firstname }} {% endif %} {% if user.lastname %} {{ user.lastname }} {% endif %}</h4>
 
+                {% else %}
+                <h4>Find deals on hotels, homes, and much more.</h4>
+
+                {% endif %}
                 <form  method="POST" enctype="multipart/form-data" name="search" onsubmit="return validateForm()">
                     <div class="form-row align-items-center">
                     {% csrf_token %}
                         <div class="col-md-4 my-1">
-                            <div class="input-group mb-2 mr-sm-2 mb-sm-0">
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="border:2px solid #08a397">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">@</div>
+                                    <!-- <div class="input-group-text">@</div> -->
                                     <input class="form-control text-capitalize" type="text" name="searchterm" id="checkin" placeholder="where are you going?" required>
                                 </div>
                             </div>
@@ -31,11 +41,10 @@
 
                         <!-- Multi Date, Date Picker -->
                         <div class="col-md-4 my-1">
-
-                            <div class="input-group mb-2 mr-sm-2mb-sm-0">
+                            <div class="input-group mb-2 mr-sm-2 mb-sm-0" style="border: 2px solid #08a397">
                                 <div class="input-group-prepend">
-                                    <div class="input-group-text">@</div>
-                                    <input class="date form-control" type="text" name="daterange" id="checkin" placeholder="Select Date" required>
+                                    <!-- <div class="input-group-text">@</div> -->
+                                    <input class="date form-control text-capitalize" type="text" name="daterange" id="checkin" placeholder="Check-in - Check-out" required>
                                 </div>
                             </div>
                         </div>
@@ -50,6 +59,9 @@
         </div>
     </div>
 </section>
+<br>
+<br>
+<br>
 
 
 <!--
