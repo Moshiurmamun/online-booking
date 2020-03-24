@@ -3,6 +3,11 @@ from booking.models import Booking
 from hotels.models import Hotels, Places, Room
 from hotels.forms import PlacesForm, HotelsAddFormAdmin, RoomAddForm
 from booking.models import Booking
+from contact.models import Contact
+from contact.forms import ReplyMessage
+from django.http import JsonResponse
+
+
 
 ### Home view for staff
 def staff_home(request):
@@ -180,3 +185,77 @@ def edit_room(request, id):
             'form': form,
         }
         return render(request, 'staff/add_room.html', context)
+
+
+
+
+# =============== Message View ================
+def queries(request):
+    if request.user.is_superuser:
+        message_list = Contact.objects.filter(replied=False).order_by('-msg_send_date')
+
+        context = {
+            'messages': message_list,
+        }
+        return render(request, 'staff/messages.html', context)
+    else:
+        return render(request, 'staff/page_not_found.html')
+
+
+
+
+# ================== reply message ==================
+def replyMessage(request, id):
+    if request.user.is_superuser:
+        instance = get_object_or_404(Contact, id=id)
+
+        if request.method == 'POST':
+            form = ReplyMessage(request.POST or None, instance=instance)
+            if form.is_valid():
+                instance = form.save(commit=False)
+                instance.replied =True
+                return redirect('staff:queries')
+        else:
+            form = ReplyMessage()
+
+        context = {
+            'form': form,
+            'instance': instance,
+        }
+        return render(request, 'contact/reply.html', context)
+
+    else:
+        return render(request, 'staff/page_not_found.html')
+
+
+
+
+
+
+# ================= replied message view ====================
+def ApiRepliedMessage(request):
+    if request.user.is_superuser:
+        if request.GET.get('message_id'):
+            message_id = request.GET.get('message_id')
+            message_obj = Contact.objects.get(id=message_id)
+
+            data = dict()
+            if message_obj in Contact.objects.all():
+                message_obj.replied = True
+                message_obj.save()
+                data['replied'] = 'success'
+                message_list = Contact.objects.filter(replied=False).order_by('-msg_send_date')
+
+
+                context = {
+                    'messages': message_list
+                }
+            return JsonResponse(data)
+
+        return JsonResponse({
+            'replied': 'error'
+        })
+
+    else:
+        return render(request, 'staff/page_not_found.html')
+

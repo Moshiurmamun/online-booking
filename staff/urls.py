@@ -38,4 +38,12 @@ urlpatterns = [
     # Add room, Edit Room
     re_path('add-room/(?P<id>\d+)/$', login_required(views.add_room), name="add_room"),
     re_path('edit-room/(?P<id>\d+)/$', login_required(views.edit_room), name = "edit_room"),
+
+
+
+    # contact message url
+    path('queries/', views.queries, name="queries"),
+    path('api/replied-message', views.ApiRepliedMessage, name="replied_message"),
+    re_path('reply-message/(?P<id>\d+)/$', views.replyMessage, name="msg_reply"),
+
 ]
