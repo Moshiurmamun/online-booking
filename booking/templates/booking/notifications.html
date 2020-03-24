@@ -53,9 +53,11 @@
                <div class="card" style="padding:20px;border: 1px solid #ddd; border-radius:8px; height:100%">
                {% for notification in notifications %}
                    {% if not notification.is_read %}
-                       <p onclick="markAsRead('{{ notification.id }}');">{{ notification.message }}</p>
+                   <div class="card" style="background: #ddd" onclick="markAsRead('{{ notification.id }}');">
+                       <p >{{ notification.message }}</p>
 
                        <span class="text-muted">{{ notification.created | timesince }} ago</span>
+                    </div>
                    <br>
                    <br>
 
