@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body pre-scrollable" id="my_div">
+                    {% for message in messages %}
+                        <p class="card-text"></p>
+                        {% if message.replied %}
+                            <p class="card-text"></p>
+                        {% endif %}
+                    {% endfor %}
+
+                    <form id="my_div" method="POST">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+
+                        <input type="submit" style="visibility: hidden">
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}
+
+
+
+{% block javascript %}
+
+<script type="text/javascript">
+	$("#my_div").scrollTop($("#my_div")[0].scrollHeight);
+</script>
+{% endblock %}
