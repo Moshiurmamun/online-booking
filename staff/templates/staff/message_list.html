@@ -1,0 +1,40 @@
+{% for message in messages %}
+    <div class="message p-5 z-depth-1 mt-4 mb-5">
+        <!-- row for name and Email -->
+        <div class="row">
+            <div class="col-md-6 col-12 col-sm-6">
+                <p><span class="text-danger font-weight-bold">Full Name: </span>{{ message.name }}</p>
+            </div>
+            <div class="col-md-6 col-12 col-sm-6">
+                <p><span class="text-danger font-weight-bold">Email: </span>{{ message.email }}</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p><span class="text-danger font-weight-bold">Subject: </span>{{ message.subject }}</p>
+            </div>
+        </div>
+        <!-- row for review -->
+        <div class="row">
+            <div class="col">
+                <p class="text-danger font-weight-bold">Message</p>
+                <p class="text-justify">{{ message.message }}</p>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- row for approve and delete button -->
+        <p class="text-muted">{{ message.msg_send_date|date }}</p>
+
+        {% if message.user %}
+        <a class="btn btn-default btn-sm" href="{% url 'staff:msg_reply' id=message.id %}">Reply<i class="fas fa-reply ml-2"></i></a>
+        {% else %}
+        <a href="https://gmail.com/" target="_">Reply Through Email</a>
+        <a class="btn btn-info btn-sm ml-5" onclick="replied('{{ message.id }}');">Mark as Replied</a>
+        {% endif %}
+    </div>
+{% empty %}
+    <p class="p-4 mt-4 border text-muted">You have no message in message list.</p>
+{% endfor %}

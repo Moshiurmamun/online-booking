@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Dear Life Bd - Staff Home {% endblock %}
+
+
+
+{% block stylesheet %}
+
+<style>
+
+</style>
+
+
+    {% endblock %}
+
+
+{% block content %}
+
+<div class="container-fluid mt-5 ">
+		<div class="row">
+			<div class="col-md-3 mr-5 col-sm-12 ee p-4">
+				<nav class="nav flex-column">
+                  <a class="nav-link text-white pt-3">{{ user.email }}</a>
+				  <a class="nav-link text-white  p-3" href="{% url 'staff:staff_home' %}">Booking Request</a>
+				  <a class="nav-link text-white  pt-3" href="{% url 'staff:view_booking' %}">View Booking</a>
+				  <a class="nav-link text-white  pt-3" href="{% url 'staff:places_list' %}">Places & Hotels</a>
+                  <a class="nav-link text-white border pt-3" href="{% url 'staff:queries' %}">Messages</a>
+				</nav>
+			</div>
+
+
+
+        <div class="col-md-8 col-sm-12">
+            <h3 class="font-weight-bold">Messages</h3>
+                <div class="load-messages">
+                    {% include 'staff/message_list.html' %}
+                </div>
+
+        </div>
+        </div>
+</div>
+
+{% endblock content %}
+
+
+
+
+{% block javascript %}
+<!-- approve feedback ajax call -->
+  <script type="text/javascript">
+    function replied(message_id){
+      $.ajax({
+        url: '{% url 'staff:replied_message' %}',
+        method: 'get',
+        data: {'message_id': message_id,},
+        success: function(data){
+          status = data.replied;
+          if(status == 'success'){
+            $('.container-fluid .load-messages').html(data.html_message_list);
+          }else{
+
+          }
+        }
+      })
+    }
+  </script>
+{% endblock %}
