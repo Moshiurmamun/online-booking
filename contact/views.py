@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from .models import Contact
 from .forms import *
+from accounts.models import UserProfile
+from accounts import models as account_model
 
 
 
@@ -32,7 +34,7 @@ def contactUs(request):
 
 
 def messages(request, id):
-    user = get_object_or_404(User, id=id)
+    user = get_object_or_404(account_model.UserProfile, id=id)
     messages = Contact.objects.filter(user=user).order_by('id')
 
     if request.method == 'POST':
@@ -40,9 +42,9 @@ def messages(request, id):
         if form.is_valid():
             instance = form.save(commit=False)
             instance.user = request.user
-            instance.name = request.user.userprofile.firstname
+            instance.name = request.user.firstname
             instance.save()
-            return redirect('accounts:messages', request.user)
+            return redirect('/')
     else:
         form = SendMessage()
 
