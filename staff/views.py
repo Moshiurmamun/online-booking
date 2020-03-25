@@ -189,7 +189,10 @@ def edit_room(request, id):
 
 
 
-# =============== Message View ================
+
+# ===================================== Staff Message View ===============================
+# admin je gular reply dibe segula True hoye jabe mane ekhane show korbe na
+# jegula unreplied segulai show korbe
 def queries(request):
     if request.user.is_superuser:
         message_list = Contact.objects.filter(replied=False).order_by('-msg_send_date')
@@ -204,7 +207,7 @@ def queries(request):
 
 
 
-# ================== reply message ==================
+# ================== staff reply message ==================
 def replyMessage(request, id):
     if request.user.is_superuser:
         instance = get_object_or_404(Contact, id=id)
@@ -214,6 +217,7 @@ def replyMessage(request, id):
             if form.is_valid():
                 instance = form.save(commit=False)
                 instance.replied =True
+                instance.save()
                 return redirect('staff:queries')
         else:
             form = ReplyMessage()
